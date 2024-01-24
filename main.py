@@ -22,8 +22,7 @@ root.geometry(f"{str(WINDOW_MINSIZE['width'])}x{str(WINDOW_MINSIZE['height'])}+5
 #Create left Frame
 left_frame = Frame(
     root, 
-    width=200, 
-    height = WINDOW_MINSIZE['height'], 
+    width=200,  
     bg=MMD_GRAY
 )
 
@@ -44,8 +43,7 @@ label = Label(
 #Creat Right Frame
 right_frame = Frame( 
     root, 
-    width = (WINDOW_MINSIZE["width"] - 200), 
-    height = WINDOW_MINSIZE['height'], 
+    width = (WINDOW_MINSIZE["width"] - 200),
     bg = MMD_GRAY
 )
 
