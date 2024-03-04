@@ -1,0 +1,5 @@
+#ignore file
+practice.ipynb
+
+#ignore dir
+.ipynb_checkpoints/
