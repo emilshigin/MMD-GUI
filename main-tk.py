@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import os
 
@@ -92,7 +93,7 @@ def copy_address(item):
     window.update()  # Required on macOS
 
 #Production Layout Setup
-production_frame = tk.Frame(content_frame)
+production_frame = tk.Frame(content_frame,bd=2,relief="solid")
 
 production_frame.grid_rowconfigure(0,weight=1)
 production_frame.grid_columnconfigure(1, weight=1)
@@ -100,20 +101,20 @@ production_frame.grid_columnconfigure(1, weight=1)
 production_frame.grid(column= 0, row= 0, sticky="news")
 production_frame.grid(column= 1, row= 0, sticky="news")
 
-left_production_frame = tk.Frame(production_frame)
+left_production_frame = ttk.Frame(production_frame, padding = (5,5,10,0))
 left_production_frame.grid(column=0,row=0,sticky="news")
 
-right_production_frame = tk.Frame(production_frame)
+right_production_frame = ttk.Frame(production_frame, padding = (5,5,10,0), borderwidth=4, )
 right_production_frame.grid(column=1,row=0,sticky="news")
 
 # Left Column
 # Device Image
-Neo_3_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images\\Neo_3.jpeg")).resize((300,300)))
-Neo_3_image_label = tk.Label(left_production_frame,image=Neo_3_image, bd=5, relief="solid")
+Neo_3_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images\\Neo_3.jpeg")).resize((200,180)))
+Neo_3_image_label = tk.Label(left_production_frame,image=Neo_3_image, bd=2, relief="solid")
 Neo_3_image_label.grid(column=0,row=0,sticky="news")
 
 #Mac Address
-mac_address_frame = tk.Frame(left_production_frame)
+mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,12,12))
 mac_address = tk.Label(mac_address_frame, text="Mac Address:")
 mac_address_responce = tk.Button(mac_address_frame, text="##:##:##:##:#1",relief="flat",command=lambda:copy_address(mac_address_responce))
 
@@ -131,8 +132,22 @@ bluetooth_address.grid(column=0,row=0)
 bluetooth_address_responce.grid(column=1,row=0)
 
 # Right Column
-lable_right= tk.Label(right_production_frame,text="DEVICE PLUGED IN")
-lable_right.grid(column=0,row=0,sticky="new")
+
+#sync device top
+def finding_devices():
+    print("non found yet")
+    
+
+
+device_sync_top = tk.Frame(right_production_frame)
+device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices())
+device_scan_label = tk.Label(device_sync_top,text="PLUGED IN DEVICE")
+
+device_sync_top.grid(column=0,row=0,sticky="news")
+device_scan_label.grid(column=0,row=0)
+device_scan_button.grid(column=1,row=0)
+
+
 
 #run
 window.mainloop()
