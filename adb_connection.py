@@ -3,33 +3,37 @@ from adb_shell.adb_device import  AdbDeviceUsb
 from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
 import os
+import re
 
 THIS_FILE_DIR = os.path.dirname(__file__)
-global signer 
-
-
+ 
+    
 def get_adb_key():
     # Load the public and private keys
-    adbkey = 'path/to/adbkey'
+    adbkey = THIS_FILE_DIR+'\\adbkey'
     with open(adbkey) as f:
         priv = f.read()
     with open(adbkey + '.pub') as f:
         pub = f.read()
-    signer = PythonRSASigner(pub, priv)
+    return PythonRSASigner(pub, priv)
 
-def generate_adb_key():
-    print("print 1")
-    print("Dir:",THIS_FILE_DIR )
-    keygen(THIS_FILE_DIR)
-    print("step 2")
+if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
+    keygen(THIS_FILE_DIR+'\\adbkey')
 
-if(os.path.isfile(THIS_FILE_DIR+"\adbkey.pub") == False):
-    generate_adb_key()
-    print("adb key generated")
+try:
+    device = AdbDeviceUsb()
+    device.connect(rsa_keys=[get_adb_key()], auth_timeout_s=0.1)
+except:
+    print("no device found")
 
-# # Connect via USB (package must be installed via `pip install adb-shell[usb])`
-# device2 = AdbDeviceUsb()
-# device2.connect(rsa_keys=[signer], auth_timeout_s=0.1)
-
-# # Send a shell command
-# response2 = device2.shell('echo TEST2')
+#Neo info check with other device
+def get_device_info():
+    return {
+        "name" : device.shell('getprop sys.pxr.product.name'),
+        "Internal SN" : device.shell('getprop ro.pxr.serialno'),
+        "MAC Address" : re.search(
+            '[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]',
+            device.shell("ip address show wlan0")
+            ).group(),
+        "Bluetooth Adress" : device.shell("settings get secure bluetooth_address").strip()
+    }

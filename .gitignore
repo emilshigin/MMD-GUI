@@ -1,5 +1,9 @@
 #ignore file
 practice.ipynb
+adbkey
+adbkey.pub
+_pychache_
 
 #ignore dir
 .ipynb_checkpoints/
+.idea/

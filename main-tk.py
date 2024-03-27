@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import os
+import adb_connection
 
 THIS_FILE_DIR = os.path.dirname(__file__)
 
@@ -58,7 +59,7 @@ def enter_menu_frame():
         menu_frame_expanded = True
         window.after_cancel(repeat)
         menu_frame_fill()
-
+ 
 def leave_menu_frame():
     global menu_frame_curremt_width,menu_frame_expanded
     menu_frame_curremt_width -= 10
@@ -84,6 +85,7 @@ menu_frame.bind('<Leave>', lambda e: leave_menu_frame())
 
 menu_frame.grid_propagate(False)
 
+#######################################################
 # Production Content
 
 # Copy the text to the clipboard
@@ -136,18 +138,34 @@ bluetooth_address_responce.grid(column=1,row=0)
 #sync device top
 def finding_devices():
     print("non found yet")
-    
 
-
-device_sync_top = tk.Frame(right_production_frame)
+device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
+try: 
+    device_name = adb_connection.get_device_info()["name"] 
+except: 
+    device_name = "Plug in device"
+device_scan_label = tk.Label(device_sync_top,text=device_name)
 device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices())
-device_scan_label = tk.Label(device_sync_top,text="PLUGED IN DEVICE")
 
-device_sync_top.grid(column=0,row=0,sticky="news")
+device_sync_top.grid_columnconfigure(0,weight=1)
+device_sync_top.grid(column=0,row=0,columnspan=1,sticky="news")
 device_scan_label.grid(column=0,row=0)
 device_scan_button.grid(column=1,row=0)
 
+# Cheack list 
+device_check_list = tk.Frame(right_production_frame,bd=2,relief="solid")
+is_mac_check_label = tk.Label(device_check_list,text="mac adress")
+is_bluetooth_check_label = tk.Label(device_check_list,text="bluetooth adress")
+is_app_installed_label = tk.Label(device_check_list,text="app installed")
 
+device_check_list.grid_columnconfigure(0,weight=1)
+device_check_list.grid_columnconfigure(1,weight=2)
+
+# Check List Lables
+device_check_list.grid(column=0,row=1,columnspan=1,sticky="nsew")
+is_mac_check_label.grid(column=1,row=0, sticky="w")
+is_bluetooth_check_label.grid(column=1,row=1,sticky="w")
+is_app_installed_label.grid(column=1,row=2,sticky="w")
 
 #run
 window.mainloop()
