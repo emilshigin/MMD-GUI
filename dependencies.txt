@@ -1,2 +1,4 @@
 pip install pillow
 pip install adb-shell
+pip install adb-shell[usb]
+pip install adb-shell[async]
