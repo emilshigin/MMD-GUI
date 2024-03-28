@@ -17,23 +17,30 @@ def get_adb_key():
         pub = f.read()
     return PythonRSASigner(pub, priv)
 
-if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
-    keygen(THIS_FILE_DIR+'\\adbkey')
-
-try:
-    device = AdbDeviceUsb()
-    device.connect(rsa_keys=[get_adb_key()], auth_timeout_s=0.1)
-except:
-    print("no device found")
 
 #Neo info check with other device
 def get_device_info():
+    if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
+        keygen(THIS_FILE_DIR+'\\adbkey')
+    try:
+        device = AdbDeviceUsb()
+        device.connect(rsa_keys=[get_adb_key()], auth_timeout_s=0.1)
+    except:
+        return {
+            "name" : "No Device Found",
+            "Internal SN" : "#################",
+            "MAC Address" : "##:##:##:##:##:##",     
+            "Bluetooth Adress" : "##:##:##:##:##:##",
+        }
+
     return {
-        "name" : device.shell('getprop sys.pxr.product.name'),
-        "Internal SN" : device.shell('getprop ro.pxr.serialno'),
+        "name" : device.shell('getprop sys.pxr.product.name').strip(),
+        "Internal SN" : device.shell('getprop ro.serialno').strip(),
         "MAC Address" : re.search(
             '[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]',
-            device.shell("ip address show wlan0")
+            device.shell("ip address show wlan0").strip()
             ).group(),
         "Bluetooth Adress" : device.shell("settings get secure bluetooth_address").strip()
     }
+
+# print(get_device_info())
