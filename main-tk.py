@@ -6,6 +6,10 @@ import adb_connection
 
 THIS_FILE_DIR = os.path.dirname(__file__)
 
+# [TODO]: device info needs to update if headset is unplaged and repluged or a new headset is plugged in
+# Use the device scan button
+device_info = adb_connection.get_device_info()
+
 # Window defualts
 window = tk.Tk()
 window.title('layout')
@@ -118,7 +122,7 @@ Neo_3_image_label.grid(column=0,row=0,sticky="news")
 #Mac Address
 mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,12,12))
 mac_address = tk.Label(mac_address_frame, text="Mac Address:")
-mac_address_responce = tk.Button(mac_address_frame, text="##:##:##:##:#1",relief="flat",command=lambda:copy_address(mac_address_responce))
+mac_address_responce = tk.Button(mac_address_frame, text=device_info['MAC Address'],relief="flat",command=lambda:copy_address(mac_address_responce))
 
 mac_address_frame.grid(column=0,row=1,sticky="news")
 mac_address.grid(column=0,row=0)
@@ -127,7 +131,7 @@ mac_address_responce.grid(column=1,row=0)
 #Bluetooth Address
 bluetooth_address_frame = tk.Frame(left_production_frame)
 bluetooth_address = tk.Label(bluetooth_address_frame, text="Bluetooth Address:")
-bluetooth_address_responce = tk.Button(bluetooth_address_frame, text="##:##:##:##:#2",relief="flat",command=lambda:copy_address(bluetooth_address_responce))
+bluetooth_address_responce = tk.Button(bluetooth_address_frame, text=device_info['Bluetooth Adress'], relief="flat",command=lambda:copy_address(bluetooth_address_responce))
 
 bluetooth_address_frame.grid(column=0,row=2,sticky="news")
 bluetooth_address.grid(column=0,row=0)
@@ -140,11 +144,8 @@ def finding_devices():
     print("non found yet")
 
 device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
-try: 
-    device_name = adb_connection.get_device_info()["name"] 
-except: 
-    device_name = "Plug in device"
-device_scan_label = tk.Label(device_sync_top,text=device_name)
+
+device_scan_label = tk.Label(device_sync_top,text=device_info['name'])
 device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices())
 
 device_sync_top.grid_columnconfigure(0,weight=1)
