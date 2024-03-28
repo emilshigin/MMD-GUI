@@ -2,8 +2,8 @@
 practice.ipynb
 adbkey
 adbkey.pub
-_pycache_
 
 #ignore dir
 .ipynb_checkpoints/
 .idea/
+_pycache_/
