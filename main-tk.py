@@ -4,11 +4,12 @@ from PIL import Image, ImageTk
 import os
 import adb_connection
 
-THIS_FILE_DIR = os.path.dirname(__file__)
+# TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
+# TODO: make better gui by reading pythonguis.com
+# TODO: Seperate the Production Conttent into individual file
 
-# [TODO]: device info needs to update if headset is unplaged and repluged or a new headset is plugged in
-# Use the device scan button
 device_info = adb_connection.get_device_info()
+THIS_FILE_DIR = os.path.dirname(__file__)
 
 # Window defualts
 window = tk.Tk()
