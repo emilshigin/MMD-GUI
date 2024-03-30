@@ -2,7 +2,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import production_content
 
-<<<<<<< HEAD
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
 def enter_menu_frame():
@@ -41,11 +40,9 @@ def content_handler(switch_to=production_content):
 
 # [TODO]: device info needs to update if headset is unplaged and repluged or a new headset is plugged in
 # Use the device scan button
-=======
 # TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
 # TODO: make better gui by reading pythonguis.com
 # TODO: Seperate the Production Conttent into individual file
->>>>>>> aca4b2df059612f188147456628748a6c1f1d7ea
 
 # Window defualts
 window = tk.Tk()
