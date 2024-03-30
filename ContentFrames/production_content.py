@@ -3,9 +3,8 @@ import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import os
 import adb_connection
-import production_content
 
-THIS_FILE_DIR = os.path.dirname(__file__)
+THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
 device_info = adb_connection.get_device_info()
 
 #######################################################
@@ -30,15 +29,14 @@ def content(self,window,content_frame):
     production_frame = tk.Frame(content_frame,bd=2,relief="solid")
 
     production_frame.grid_rowconfigure(0,weight=1)
-    production_frame.grid_columnconfigure(1, weight=1)
+    production_frame.grid_columnconfigure(0, weight=1)
 
     production_frame.grid(column= 0, row= 0, sticky="news")
-    production_frame.grid(column= 1, row= 0, sticky="news")
 
-    left_production_frame = ttk.Frame(production_frame, padding = (5,5,10,0))
+    left_production_frame = ttk.Frame(production_frame, padding = (5,5,0,0),relief="solid")
     left_production_frame.grid(column=0,row=0,sticky="news")
 
-    right_production_frame = ttk.Frame(production_frame, padding = (5,5,10,0), borderwidth=4, )
+    right_production_frame = ttk.Frame(production_frame, padding = (20,5,40,0),relief="solid")
     right_production_frame.grid(column=1,row=0,sticky="news")
 
     # Left Column
@@ -68,7 +66,7 @@ def content(self,window,content_frame):
     # Right Column
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
-    device_scan_label = tk.Label(device_sync_top,text=device_info['name'])
+    device_scan_label = tk.Label(device_sync_top,text=device_info['name'],padx=10)
     device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices())
 
     device_sync_top.grid_columnconfigure(0,weight=1)
