@@ -25,15 +25,17 @@ def get_adb_key():
 def get_device_info():
     if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
         keygen(THIS_FILE_DIR+'\\adbkey')
+    
     try:
-        os.system("adb kill-server")
-    except:
+        adb_kill_str = os.system("adb kill-server")
+        if "is not recognized" in adb_kill_str:
+            print("ADB may not be installed or configured as a windows $PATH")
+    except Exception :
         print("ADB may not be installed or configured as a windows $PATH")
 
     try:    
         device = AdbDeviceUsb()
         device.connect(rsa_keys=[get_adb_key()], auth_timeout_s=0.1)
-
     except:
         return {
             "name" : "No Device Found",
@@ -51,5 +53,3 @@ def get_device_info():
             ).group(),
         "Bluetooth Adress" : device.shell("settings get secure bluetooth_address").strip()
     }
-
-print(get_device_info())
