@@ -7,9 +7,7 @@ import re
 
 THIS_FILE_DIR = os.path.dirname(__file__)
  
-    
 def get_adb_key():
-    # Load the public and private keys
     adbkey = THIS_FILE_DIR+'\\adbkey'
     with open(adbkey) as f:
         priv = f.read()
@@ -17,14 +15,25 @@ def get_adb_key():
         pub = f.read()
     return PythonRSASigner(pub, priv)
 
-
-#Neo info check with other device
+# Get Device info
+# Steps:
+    # Check adbkey is avalable
+    # Stop ADB Server
+    # Try to connect USB Device
+# Return: 
+#   dictionary of device info name,internal SN,MAC Address, Bluetooth Adress 
 def get_device_info():
     if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
         keygen(THIS_FILE_DIR+'\\adbkey')
     try:
+        os.system("adb kill-server")
+    except:
+        print("ADB may not be installed or configured as a windows $PATH")
+
+    try:    
         device = AdbDeviceUsb()
         device.connect(rsa_keys=[get_adb_key()], auth_timeout_s=0.1)
+
     except:
         return {
             "name" : "No Device Found",
@@ -43,4 +52,4 @@ def get_device_info():
         "Bluetooth Adress" : device.shell("settings get secure bluetooth_address").strip()
     }
 
-# print(get_device_info())
+print(get_device_info())
