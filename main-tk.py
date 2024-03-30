@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import production_content
+from ContentFrames import production_content
+from ContentFrames import settings_content
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
@@ -27,22 +28,19 @@ def leave_menu_frame():
 def menu_frame_fill():
     global menu_frame_expanded,menu_frame_curremt_width
     if menu_frame_expanded:
-        menu_production_button.config(text="Production",font=(0,15))
-        menu_settings_button.config(text="Settings",font=(0,15))
+        menu_production_button.config(text="Production",font=(0,15), command=lambda:content_handler(production_content))
+        menu_settings_button.config(text="Settings",font=(0,15),command=lambda:content_handler(settings_content))
     else:
         menu_production_button.config(text="Prod",font=(0,15))
         menu_settings_button.config(text="Set",font=(0,15))
 
 
-def content_handler(switch_to=production_content):
-    if switch_to == production_content:    
-        production_content.content(window,window,content_frame)
+def content_handler(switch_to=settings_content):   
+# def content_handler(switch_to=production_content):   
+        switch_to.content(window,window,content_frame)
 
-# [TODO]: device info needs to update if headset is unplaged and repluged or a new headset is plugged in
-# Use the device scan button
 # TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
 # TODO: make better gui by reading pythonguis.com
-# TODO: Seperate the Production Conttent into individual file
 
 # Window defualts
 window = tk.Tk()
@@ -70,13 +68,15 @@ body_frame.grid_rowconfigure(0,weight=1)
 body_frame.grid_columnconfigure(1, weight=1)
 
 content_frame.grid_rowconfigure(0,weight=1)
-content_frame.grid_columnconfigure(1, weight=1)
-
+content_frame.grid_columnconfigure(0, weight=1)
 
 body_frame.grid(column=0, row = 0 , sticky="news")
 window_bottom_bar.grid(column=0, row = 1 , sticky="ews")
 menu_frame.grid(column= 0, row = 0 ,sticky="news")
 content_frame.grid(column= 1, row = 0 ,sticky="news")
+
+# Update Content Frame
+content_handler()
 
 # Menu Content
 menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod", font=(0,15))
@@ -87,10 +87,7 @@ menu_settings_button.grid(column=0, row = 1 , sticky="ews")
 
 menu_frame.bind('<Enter>', lambda e: enter_menu_frame())
 menu_frame.bind('<Leave>', lambda e: leave_menu_frame())
-
 menu_frame.grid_propagate(False)
-
-content_handler()
 
 #run
 window.mainloop()
