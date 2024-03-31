@@ -1,10 +1,15 @@
 import tkinter as tk
+import json
 import tkinter.ttk as ttk
 from ContentFrames import production_content
 from ContentFrames import settings_content
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
+def config_data():
+     data = json.load(open(file="./config.json"))
+     return data
+
 def enter_menu_frame():
     global menu_frame_curremt_width,menu_frame_expanded
     menu_frame_curremt_width += 10
@@ -28,19 +33,24 @@ def leave_menu_frame():
 def menu_frame_fill():
     global menu_frame_expanded,menu_frame_curremt_width
     if menu_frame_expanded:
-        menu_production_button.config(text="Production",font=(0,15), command=lambda:content_handler(production_content))
-        menu_settings_button.config(text="Settings",font=(0,15),command=lambda:content_handler(settings_content))
+        menu_production_button.config(text="Production",font=(0,15), command=lambda:content_handler("production_content"))
+        menu_settings_button.config(text="Settings",font=(0,15),command=lambda:content_handler("settings_content"))
     else:
         menu_production_button.config(text="Prod",font=(0,15))
         menu_settings_button.config(text="Set",font=(0,15))
 
 
-def content_handler(switch_to=settings_content):   
-# def content_handler(switch_to=production_content):   
-        switch_to.content(window,window,content_frame)
+def content_handler(switch_to):
+        if (switch_to == "production_content"):
+            production_content.content(window,window,content_frame)
+        if (switch_to == "settings_content"):
+            settings_content.content(window,window,content_frame)
 
 # TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
 # TODO: make better gui by reading pythonguis.com
+
+config_data = config_data()
+print(config_data["start_page"])
 
 # Window defualts
 window = tk.Tk()
@@ -76,7 +86,7 @@ menu_frame.grid(column= 0, row = 0 ,sticky="news")
 content_frame.grid(column= 1, row = 0 ,sticky="news")
 
 # Update Content Frame
-content_handler()
+content_handler(config_data["start_page"])
 
 # Menu Content
 menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod", font=(0,15))
