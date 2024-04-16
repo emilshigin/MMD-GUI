@@ -40,17 +40,17 @@ def menu_frame_fill():
         menu_settings_button.config(text="Set",font=(0,15))
 
 
-def content_handler(switch_to):
-        if (switch_to == "production_content"):
-            production_content.content(window,window,content_frame)
-        if (switch_to == "settings_content"):
-            settings_content.content(window,window,content_frame)
+def content_handler(switch_to = None):
+        if switch_to is not None:
+             return exec(switch_to+".content(window,window,content_frame)")
+        print("\nNo valad string was given to function content_handler\nThe function was given",switch_to)
+        
+        
 
 # TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
 # TODO: make better gui by reading pythonguis.com
 
 config_data = config_data()
-print(config_data["start_page"])
 
 # Window defualts
 window = tk.Tk()
@@ -87,6 +87,8 @@ content_frame.grid(column= 1, row = 0 ,sticky="news")
 
 # Update Content Frame
 content_handler(config_data["start_page"])
+# content_handler() # For Tests
+
 
 # Menu Content
 menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod", font=(0,15))
