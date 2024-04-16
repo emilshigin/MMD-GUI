@@ -20,8 +20,6 @@ def copy_address(window,item):
 def finding_devices():
     print("non found yet")
 
-
-
 def content(self,window,content_frame):
     self.window = window
 
