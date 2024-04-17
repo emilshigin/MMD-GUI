@@ -6,6 +6,7 @@ import adb_connection
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
 device_info = adb_connection.get_device_info()
+print(device_info)
 
 #######################################################
 # Production Content
@@ -44,7 +45,7 @@ def content(self,window,content_frame):
     self.Neo_3_image_label.grid(column=0,row=0,sticky="news")
 
     #Mac Address
-    mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,12,12))
+    mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,0,0))
     mac_address = tk.Label(mac_address_frame, text="Mac Address:")
     mac_address_responce = tk.Button(mac_address_frame, text=device_info['MAC Address'],relief="flat",command=lambda:copy_address(window,mac_address_responce))
 
@@ -60,6 +61,15 @@ def content(self,window,content_frame):
     bluetooth_address_frame.grid(column=0,row=2,sticky="news")
     bluetooth_address.grid(column=0,row=0)
     bluetooth_address_responce.grid(column=1,row=0)
+
+    #Internal SN (ISN)
+    isn_frame = tk.Frame(left_production_frame)
+    isn = tk.Label(isn_frame, text="Internal SN:")
+    isn_responce = tk.Button(isn_frame, text=device_info['Internal SN'], relief="flat",command=lambda:copy_address(window,isn_responce))
+
+    isn_frame.grid(column=0,row=3,sticky="news")
+    isn.grid(column=0,row=0)
+    isn_responce.grid(column=1,row=0)
 
     # Right Column
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
