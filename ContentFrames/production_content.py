@@ -2,10 +2,11 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import os
-import adb_connection
+from adb_connection import device
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
-device_info = adb_connection.get_device_info()
+usb_device = device()
+device_info = usb_device.get_device_info()
 print(device_info)
 
 #######################################################
@@ -19,7 +20,9 @@ def copy_address(window,item):
 
 #sync device top
 def finding_devices():
-    print("non found yet")
+    usb_device = device()
+    device_info = usb_device.get_device_info()
+    print(device_info)
 
 def content(self,window,content_frame):
     self.window = window

@@ -10,6 +10,14 @@ THIS_FILE_DIR = os.path.dirname(__file__)
 
 class device:
 
+    def __init__(self):
+        try:
+            print('Setting...')
+            self.usb = AdbDeviceUsb()
+            print('USB Device')
+        except:
+            print('No device found')
+
     def get_adb_key():
         adbkey = THIS_FILE_DIR+'\\adbkey'
         with open(adbkey) as f:
@@ -25,7 +33,7 @@ class device:
         # Try to connect USB Device
     # Return: 
     #   dictionary of device info name,internal SN,MAC Address, Bluetooth Adress 
-    def get_device_info():
+    def get_device_info(self):
         if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
             keygen(THIS_FILE_DIR+'\\adbkey')
         
@@ -39,8 +47,7 @@ class device:
             print("ADB may not be installed or configured as a windows $PATH")
 
         try:    
-            usb = AdbDeviceUsb()
-            usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
+            self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
         except:
             return {
                 "name" : "No Device Found",
@@ -49,13 +56,13 @@ class device:
                 "Bluetooth Adress" : "##:##:##:##:##:##",
             }
         return {
-            "name" : usb.shell('getprop sys.pxr.product.name').strip(),
-            "Internal SN" : usb.shell('getprop ro.serialno').strip(),
+            "name" : self.usb.shell('getprop sys.pxr.product.name').strip(),
+            "Internal SN" : self.usb.shell('getprop ro.serialno').strip(),
             "MAC Address" : re.search(
                 '[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]',
-                usb.shell("ip address show wlan0").strip()
+                self.usb.shell("ip address show wlan0").strip()
                 ).group(),
-            "Bluetooth Adress" : usb.shell("settings get secure bluetooth_address").strip()
+            "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
         }
 
     # Functions for testing
@@ -81,10 +88,9 @@ class device:
     # python uninstall uninstall com.MMD.VR2KN3
     # Neo2 [pxr.vendorhw.product.model]: [Pico Neo 2 Eye]
 
-    # if __name__ == '__main__':
-    #     uninstall_apk()
-
-while(True):
-    print(device.get_device_info())
-    x = input()
-    if x == 0 : break
+# For Testing
+if __name__ == '__main__':
+    while(True):
+        print(device.get_device_info())
+        x = input()
+        if x == 0 : break
