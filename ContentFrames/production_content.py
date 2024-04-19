@@ -18,11 +18,21 @@ def copy_address(window,item):
     window.clipboard_append(item.cget("text"))
     window.update()  # Required on macOS
 
-#sync device top
-def finding_devices():
+
+#Find device button
+#Used for when a new device is pluged in
+#Updates the displayed info
+def finding_devices(device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce):
+    # Get the new Info
     usb_device = device()
     device_info = usb_device.get_device_info()
-    print(device_info)
+    # Update display of new info
+    device_scan_label.config(text=device_info['name'])
+    mac_address_responce.config(text=device_info['MAC Address'])
+    bluetooth_address_responce.config(text=device_info['Bluetooth Adress'])
+    isn_responce.config(text=device_info['Internal SN'])
+
+    
 
 def content(self,window,content_frame):
     self.window = window
@@ -78,7 +88,7 @@ def content(self,window,content_frame):
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
     device_scan_label = tk.Label(device_sync_top,text=device_info['name'],padx=10)
-    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices())
+    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices(device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce))
 
     device_sync_top.grid_columnconfigure(0,weight=1)
     device_sync_top.grid(column=0,row=0,columnspan=1,sticky="news")
@@ -99,4 +109,7 @@ def content(self,window,content_frame):
     is_mac_check_label.grid(column=1,row=0, sticky="w")
     is_bluetooth_check_label.grid(column=1,row=1,sticky="w")
     is_app_installed_label.grid(column=1,row=2,sticky="w")
+
+    def update():
+        print('updateing')
     
