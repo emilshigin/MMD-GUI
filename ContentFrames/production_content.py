@@ -13,28 +13,37 @@ print(device_info)
 # Production Content
 
 # Copy the text to the clipboard
-def copy_address(window,item):
+def copy_address(window,item) -> None:
     window.clipboard_clear()
     window.clipboard_append(item.cget("text"))
     window.update()  # Required on macOS
 
 
-#Find device button
-#Used for when a new device is pluged in
-#Updates the displayed info
-def finding_devices(device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce):
+# Device Scan button
+# Used for when a new device is pluged in
+# Get and Updates the displayed info
+def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label) -> None:
     # Get the new Info
     usb_device = device()
     device_info = usb_device.get_device_info()
+    print(device_info)
     # Update display of new info
     device_scan_label.config(text=device_info['name'])
     mac_address_responce.config(text=device_info['MAC Address'])
     bluetooth_address_responce.config(text=device_info['Bluetooth Adress'])
     isn_responce.config(text=device_info['Internal SN'])
+    # Update Image
+    if(device_info['name'] == 'Pico Neo 3 Pro Eye'):
+        print("set Neo 3 image")
+        self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpeg")).resize((200,180)))
+    elif(device_info['name'] == 'PICO G3'):
+        print("set G3 image")
+        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G2.jpeg")).resize((200,180)))
+    device_image_label.config(image=self.device_image.resize((200,180)))
 
     
 
-def content(self,window,content_frame):
+def content(self,window,content_frame) -> None:
     self.window = window
 
     #Production Layout Setup
@@ -53,9 +62,9 @@ def content(self,window,content_frame):
 
     # Left Column
     # Device Image
-    self.Neo_3_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images\\Neo_3.jpeg")).resize((200,180)))
-    self.Neo_3_image_label = tk.Label(left_production_frame,image=self.Neo_3_image, bd=2, relief="solid")
-    self.Neo_3_image_label.grid(column=0,row=0,sticky="news")
+    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpeg")).resize((200,180)))
+    device_image_label = tk.Label(left_production_frame,image=self.device_image, bd=2, relief="solid")
+    device_image_label.grid(column=0,row=0,sticky="news")
 
     #Mac Address
     mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,0,0))
@@ -88,7 +97,7 @@ def content(self,window,content_frame):
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
     device_scan_label = tk.Label(device_sync_top,text=device_info['name'],padx=10)
-    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices(device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce))
+    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label))
 
     device_sync_top.grid_columnconfigure(0,weight=1)
     device_sync_top.grid(column=0,row=0,columnspan=1,sticky="news")
@@ -110,6 +119,3 @@ def content(self,window,content_frame):
     is_bluetooth_check_label.grid(column=1,row=1,sticky="w")
     is_app_installed_label.grid(column=1,row=2,sticky="w")
 
-    def update():
-        print('updateing')
-    

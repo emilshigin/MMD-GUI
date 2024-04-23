@@ -6,11 +6,11 @@ from ContentFrames import settings_content
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
-def config_data():
+def config_data() -> json:
      data = json.load(open(file="config.json"))
      return data
 
-def enter_menu_frame():
+def enter_menu_frame() -> None:
     global menu_frame_curremt_width,menu_frame_expanded
     menu_frame_curremt_width += 10
     repeat = window.after(3,enter_menu_frame)
@@ -20,7 +20,7 @@ def enter_menu_frame():
         window.after_cancel(repeat)
         menu_frame_fill()
  
-def leave_menu_frame():
+def leave_menu_frame() -> None:
     global menu_frame_curremt_width,menu_frame_expanded
     menu_frame_curremt_width -= 10
     repeat = window.after(5,leave_menu_frame)
@@ -30,7 +30,7 @@ def leave_menu_frame():
         window.after_cancel(repeat)
         menu_frame_fill()
 
-def menu_frame_fill():
+def menu_frame_fill() -> None:
     global menu_frame_expanded,menu_frame_curremt_width
     if menu_frame_expanded:
         menu_production_button.config(text="Production",font=(0,15), command=lambda:content_handler("production_content"))
@@ -40,7 +40,7 @@ def menu_frame_fill():
         menu_settings_button.config(text="Set",font=(0,15))
 
 
-def content_handler(switch_to = None):
+def content_handler(switch_to = None) -> exec:
         if switch_to is not None:
              return exec(switch_to+".content(window,window,content_frame)")
         print("\nNo valad string was given to function content_handler\nThe function was given",switch_to)
