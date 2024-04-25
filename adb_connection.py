@@ -12,9 +12,7 @@ class device:
 
     def __init__(self):
         try:
-            print('Setting...')
             self.usb = AdbDeviceUsb()
-            print('USB Device')
         except:
             print('No device found')
 
@@ -65,23 +63,6 @@ class device:
             "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
         }
 
-    # Functions for testing
-    def new_device_info():
-        try:    
-            usb = AdbDeviceUsb()
-            usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
-        except:
-            return print("error no device found")
-        print(usb.shell('getprop '))
-
-    def uninstall_apk():
-        try:    
-            usb = AdbDeviceUsb()
-            usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
-        except:
-            return print("error no device found")
-        print(usb.shell('uninstall com.MMD.VR2KN3'))
-
 
     # List od adb commands
     # https://gist.github.com/Pulimet/5013acf2cd5b28e55036c82c91bd56d8
@@ -90,7 +71,4 @@ class device:
 
 # For Testing
 if __name__ == '__main__':
-    while(True):
-        print(device.get_device_info())
-        x = input()
-        if x == 0 : break
+    pass
