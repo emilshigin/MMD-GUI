@@ -7,7 +7,7 @@ from adb_connection import device
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
 usb_device = device()
 device_info = usb_device.get_device_info()
-print(device_info)
+
 
 #######################################################
 # Production Content
@@ -33,16 +33,18 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     bluetooth_address_responce.config(text=device_info['Bluetooth Adress'])
     isn_responce.config(text=device_info['Internal SN'])
     # Update Image
-    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G2.jpeg")).resize((200,180)))
-    if(device_info['name'] == 'Pico Neo 3 Pro Eye'):
+    update_device_photo(self,device_image_label,device_info['name'])
+
+def update_device_photo(self,device_image_label,device_info_name):
+    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
+    if(device_info_name == 'Pico Neo 3 Pro Eye'):
         print("set Neo 3 image")
-        self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpeg")).resize((200,180)))
-    elif(device_info['name'] == 'PICO G3'):
+        self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpg")).resize((200,140)))
+    elif(device_info_name == 'PICO G3'):
         print("set G3 image")
-        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G2.jpeg")).resize((200,180)))
+        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G3.jpg")).resize((200,140)))
     device_image_label.config(image=self.device_image)
     device_image_label.image=self.device_image
-
     
 
 def content(self,window,content_frame) -> None:
@@ -64,7 +66,7 @@ def content(self,window,content_frame) -> None:
 
     # Left Column
     # Device Image
-    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpeg")).resize((200,180)))
+    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
     device_image_label = tk.Label(left_production_frame,image=self.device_image, bd=2, relief="solid")
     device_image_label.grid(column=0,row=0,sticky="news")
 
