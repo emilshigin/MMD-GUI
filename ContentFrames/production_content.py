@@ -33,13 +33,15 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     bluetooth_address_responce.config(text=device_info['Bluetooth Adress'])
     isn_responce.config(text=device_info['Internal SN'])
     # Update Image
+    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G2.jpeg")).resize((200,180)))
     if(device_info['name'] == 'Pico Neo 3 Pro Eye'):
         print("set Neo 3 image")
         self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpeg")).resize((200,180)))
     elif(device_info['name'] == 'PICO G3'):
         print("set G3 image")
         self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G2.jpeg")).resize((200,180)))
-    device_image_label.config(image=self.device_image.resize((200,180)))
+    device_image_label.config(image=self.device_image)
+    device_image_label.image=self.device_image
 
     
 
