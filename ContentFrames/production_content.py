@@ -34,6 +34,7 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     isn_responce.config(text=device_info['Internal SN'])
     # Update Image
     update_device_photo(self,device_image_label,device_info['name'])
+    usb_device.push_to_device()
 
 def update_device_photo(self,device_image_label,device_info_name):
     self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
@@ -69,6 +70,7 @@ def content(self,window,content_frame) -> None:
     self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
     device_image_label = tk.Label(left_production_frame,image=self.device_image, bd=2, relief="solid")
     device_image_label.grid(column=0,row=0,sticky="news")
+    update_device_photo(self,device_image_label,device_info['name'])
 
     #Mac Address
     mac_address_frame = ttk.Frame(left_production_frame,padding=(3,3,0,0))

@@ -37,12 +37,11 @@ class device:
         
         try:
             adb_kill_str = os.system("adb kill-server")
-            print('...')
-            if "is not recognized" in adb_kill_str:
+            if "is not recognized" == adb_kill_str:
                 print("ADB not recognuized")
                 
-        except Exception :
-            print("ADB may not be installed or configured as a windows $PATH")
+        except Exception as e :
+            print("ADB may not be installed or configured as a windows $PATH","\n",e,'\n\n')
 
         try:    
             self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
@@ -63,12 +62,33 @@ class device:
             "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
         }
 
+    def push_to_device(self):   
+        self.usb.close()
+        print("push to device")
+
+        # Push Files
+        # DA Calabration
+        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\DA_Calib_DoNotDelete.txt" /storage/emulated/0/Download')
+        # # App Manager
+        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\MMD_AppManager_3.apk" /storage/emulated/0/Download')
+        # # Puplometer
+        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\PM2000_1.1.8.apk" /storage/emulated/0/Download')
+        # # VF2000
+        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\VR2KN3_1_4_12.apk" /storage/emulated/0/Download')
+
+        # Install Updates
+        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\MMD_AppManager_3.apk"')
+        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\PM2000_1.1.8.apk"')
+        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\VR2KN3_1_4_12.apk"')
+
 
     # List od adb commands
     # https://gist.github.com/Pulimet/5013acf2cd5b28e55036c82c91bd56d8
     # python uninstall uninstall com.MMD.VR2KN3
     # Neo2 [pxr.vendorhw.product.model]: [Pico Neo 2 Eye]
 
-# For Testing
-if __name__ == '__main__':
-    pass
+    # Push files and apg
+    # push apk mmd manager
+    # install apk  
+  
+
