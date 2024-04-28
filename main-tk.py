@@ -7,7 +7,7 @@ from ContentFrames import settings_content
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
 def config_data() -> json:
-     config_data = json.load(open(file="config.json"))
+     config_data = json.load(open(file="startup_config.json"))
      return config_data
 
 def enter_menu_frame() -> None:
