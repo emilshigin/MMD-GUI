@@ -6,5 +6,5 @@ adbkey.pub
 #ignore dir
 .ipynb_checkpoints/
 .idea/
-.Backup/
+Backup/
 **/__pycache__
