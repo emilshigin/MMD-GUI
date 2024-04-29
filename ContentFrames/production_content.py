@@ -34,7 +34,7 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     isn_responce.config(text=device_info['Internal SN'])
     # Update Image
     update_device_photo(self,device_image_label,device_info['name'])
-    usb_device.push_to_device()
+    usb_device.push_to_device(device_info['name'])
 
 def update_device_photo(self,device_image_label,device_info_name):
     self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))

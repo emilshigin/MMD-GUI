@@ -53,7 +53,8 @@ class device:
                 "Bluetooth Adress" : "##:##:##:##:##:##",
             }
         return {
-            "name" : self.usb.shell('getprop sys.pxr.product.name').strip(),
+            # Neo 3[Before Update]: pxr.vendorhw.product.model
+            "name" : self.usb.shell('getprop pxr.vendorhw.product.model').strip(),
             "Internal SN" : self.usb.shell('getprop ro.serialno').strip(),
             "MAC Address" : re.search(
                 '[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]',
@@ -62,25 +63,42 @@ class device:
             "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
         }
 
-    def push_to_device(self):   
+    def push_to_device(self,device_name):   
         self.usb.close()
-        print("push to device")
+        
+        print("Push to devices: ",device_name)
+        if(device_name == 'Pico Neo 3 Pro Eye'):
+            # Push Files
+            # DA Calabration
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\DA_Calib_DoNotDelete.txt'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+                # App Manager
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\\\MMD_AppManager_3.apk'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+            os.system(f'adb install "{temp_str}"')
+                # Puplometer
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\PM2000_1.1.8.apk'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+            os.system(f'adb install "{temp_str}"')
 
-        # Push Files
-        # DA Calabration
-        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\DA_Calib_DoNotDelete.txt" /storage/emulated/0/Download')
-        # # App Manager
-        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\MMD_AppManager_3.apk" /storage/emulated/0/Download')
-        # # Puplometer
-        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\PM2000_1.1.8.apk" /storage/emulated/0/Download')
-        # # VF2000
-        os.system('adb push "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\VR2KN3_1_4_12.apk" /storage/emulated/0/Download')
+                # VF2000
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\VR2KN3_1_4_12.apk'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+            os.system(f'adb install "{temp_str}"')
 
-        # Install Updates
-        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\MMD_AppManager_3.apk"')
-        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\PM2000_1.1.8.apk"')
-        os.system('adb install "C:\\Users\\emil\\Desktop\\VF2000 Software\\Current realease\\Neo 3_CurCon\\VR2KN3_1_4_12.apk"')
+        if ( device_name == "PICO G3"):
+             # Push Files
+                # App Manager
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico G3\\\\MMD_AppManager_3.apk'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+            os.system(f'adb install "{temp_str}"')
+                # VF2000
+            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\VR2KN3_1_4_12.apk'
+            os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+            os.system(f'adb install "{temp_str}"')
 
+        else:
+            print("Devices No Yet Setup: ",device_name)
 
     # List od adb commands
     # https://gist.github.com/Pulimet/5013acf2cd5b28e55036c82c91bd56d8
