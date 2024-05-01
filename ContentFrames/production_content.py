@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 import tkinter.ttk as ttk
 from PIL import Image, ImageTk
@@ -103,7 +104,7 @@ def content(self,window,content_frame) -> None:
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
     device_scan_label = tk.Label(device_sync_top,text=device_info['name'],padx=10)
-    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:finding_devices(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label))
+    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:threading.Thread(target=finding_devices, args=(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label)).start())
 
     device_sync_top.grid_columnconfigure(0,weight=1)
     device_sync_top.grid(column=0,row=0,columnspan=1,sticky="news")
