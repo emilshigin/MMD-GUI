@@ -18,7 +18,7 @@ def startup_submition(startup,button):
         file.write(newData)
     
     button.configure(text="Submited",bg="green")
-    return button.after(1000, lambda: button.configure(text="Submit",bg="#3292e0"))
+    return button.after(800, lambda: button.configure(text="Submit",bg="#3292e0"))
 
 
 
@@ -66,18 +66,31 @@ def option_start_up(self,settings_frame):
 # Step 1: make copy of APK and File
 # Step 2: Get a history of the Files
 # Step 3: Select Current Apk  
-def file_upload(Backup_Folder_Name):
+def file_upload(Backup_Folder_Name, Upload_Type,Prefix = None ):
+    #  Get File Loction
     file_location = filedialog.askopenfilename(title="Select a File", filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
+    file_name = file_location.split("/")[-1]
     print("Current path:",THIS_FILE_DIR)
     backup_file_location = THIS_FILE_DIR+'/Backup'
     
+    # Write Current File 
     if backup_file_location.upper() not in file_location.upper():
         print("Not In backup:",file_location)
         backup_file_location = backup_file_location+"/"+Backup_Folder_Name
         print(f"Make copy in {backup_file_location} folder")
         shutil.copy2(file_location,backup_file_location)
+        file_location = backup_file_location+"/"+file_name
     
-    # Set the apk as defualt apks
+    print("File Location of APK: ", file_location)
+    with open('backup_config.json', 'r') as file:
+        data = json.load(file)
+        data[Backup_Folder_Name] = {Prefix+" "+ Upload_Type : file_location }
+        newData = json.dumps(data, indent=4)
+
+    with open('backup_config.json', 'w') as file:
+        file.write(newData)
+    
+
 
 def notebook_neo_3(frame):
     frame.grid(row=0, column=0, sticky="news")
@@ -89,7 +102,7 @@ def notebook_neo_3(frame):
     select_vf_label.grid(row=0, column=0, sticky="news")
 
     # Button to telect file
-    open_button = tk.Button(frame, text="Open File", command=lambda:file_upload(Backup_Folder_Name = "Pico Neo 3"))    
+    open_button = tk.Button(frame, text="Open File", command=lambda:file_upload(Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "VF APK"))    
     open_button.grid(row=0, column=1, sticky="news")
 
 
