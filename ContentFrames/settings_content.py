@@ -68,7 +68,8 @@ def option_start_up(self,settings_frame):
 # Step 3: Select Current Apk  
 def file_upload(Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    file_location = filedialog.askopenfilename(title="Select a File", filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
+    initialdir_str = THIS_FILE_DIR+'/Backup'
+    file_location = filedialog.askopenfilename(title="Select a File",initialdir=initialdir_str ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
     file_name = file_location.split("/")[-1]
     print("Current path:",THIS_FILE_DIR)
     backup_file_location = THIS_FILE_DIR+'/Backup'
