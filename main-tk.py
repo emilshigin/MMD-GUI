@@ -1,14 +1,18 @@
 import tkinter as tk
 import json
 import tkinter.ttk as ttk
+import os
 from ContentFrames import production_content
 from ContentFrames import settings_content
+
+
+THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
 def config_data() -> json:
-     config_data = json.load(open(file="startup_config.json"))
-     return config_data
+     data = json.load(open(file="config.json"))
+     return data
 
 def enter_menu_frame() -> None:
     global menu_frame_curremt_width,menu_frame_expanded
@@ -48,20 +52,21 @@ def content_handler(switch_to = None) -> exec:
         print("\nNo valad string was given to function content_handler\nThe function was given",switch_to)
         
         
-
-# TODO: device info needs to update if headset is unplaged and repluged or a new headset is plugged in Use the device scan button
-# TODO: make better gui by reading pythonguis.com
-
 if __name__ == '__main__':
     config_data = config_data()
 
     # Window defualts
     window = tk.Tk()
-    window.title('layout')
+    window.title('MMD Software')
     window.geometry('600x400')
+    icon_path = THIS_FILE_DIR+'\\mmd\\images\\mmd_logo.png'
+    window.iconphoto(False,tk.PhotoImage(file=icon_path))
+    window.minsize(width=600, height=400)
+    window.maxsize(width=800, height=500)
     window.update()
 
     # Frames defualts
+
     menu_frame_min_width = 50
     menu_frame_max_width = 100
     menu_frame_curremt_width = menu_frame_min_width
@@ -70,9 +75,9 @@ if __name__ == '__main__':
 
     # Sections on the window
     body_frame = tk.Frame(window, background = "blue", width = window.winfo_width() ,height=window.winfo_height()-window_bottom_bar_hieght)
-    window_bottom_bar = tk.Frame(window,background="green",height=window_bottom_bar_hieght)
-    content_frame = tk.Frame(body_frame,background="gray", width=window.winfo_width() , height=window.winfo_height()-window_bottom_bar_hieght)
-    menu_frame =  tk.Frame(body_frame, background = "red", width = menu_frame_min_width , height=window.winfo_height()-window_bottom_bar_hieght)
+    window_bottom_bar = tk.Frame(window,background="#99BFF2",height=window_bottom_bar_hieght) # Baby Blue
+    content_frame = tk.Frame(body_frame,background="#F2EFDC", width=window.winfo_width() , height=window.winfo_height()-window_bottom_bar_hieght) # Bage
+    menu_frame =  tk.Frame(body_frame, background = "#515759", width = menu_frame_min_width , height=window.winfo_height()-window_bottom_bar_hieght) # Dark Gray
 
     window.grid_rowconfigure(0, weight=1)
     window.grid_columnconfigure(0, weight=1)
@@ -90,12 +95,11 @@ if __name__ == '__main__':
 
     # Update Content Frame
     content_handler(config_data["start_page"])
-    # content_handler() # For Tests
 
 
     # Menu Content
-    menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod", font=(0,15))
-    menu_settings_button = tk.Button(menu_frame,relief='flat',text="Sett", font=(0,15))
+    menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod",background="#515759",foreground='white',pady=5, font=(0,15))
+    menu_settings_button = tk.Button(menu_frame,relief='flat',text="Sett",background="#515759",foreground='white',pady=5, font=(0,15))
 
     menu_production_button.grid(column=0, row = 0 , sticky="new")
     menu_settings_button.grid(column=0, row = 1 , sticky="ews")

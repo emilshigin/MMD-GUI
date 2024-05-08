@@ -7,18 +7,18 @@ import os
 import json
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-BACKUP_CONFIG_DATA = json.load(open(file="backup_config.json"))
+BACKUP_CONFIG_DATA = json.load(open(file="config.json"))
 
 def startup_submition(startup,button):
-    with open('startup_config.json', 'r') as file:
+    with open('config.json', 'r') as file:
         data = json.load(file)
         data["start_page"] = startup
         newData = json.dumps(data, indent=4)
 
-    with open('startup_config.json', 'w') as file:
+    with open('config.json', 'w') as file:
         file.write(newData)
     
-    button.configure(text="Submited",bg="green")
+    button.configure(text="Submited",bg="#F27405")
     return button.after(800, lambda: button.configure(text="Submit",bg="#3292e0"))
 
 
@@ -37,7 +37,7 @@ def option_start_up(self,settings_frame):
     startup_label = tk.Label(startup_option_frame,text="Startup Page:",font=font_size,pady=5)
     startup_label.grid(row=1, column=0, sticky="new")
 
-    config_data = json.load(open(file="startup_config.json"))
+    config_data = json.load(open(file="config.json"))
 
     # menu value
     option_list = {}
@@ -85,19 +85,19 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
         file_location = backup_file_location+"/"+file_name
     
     print("File Location of APK: ", file_location)
-    with open('backup_config.json', 'r') as file:
+    with open('config.json', 'r') as file:
         data = json.load(file)
         data[Backup_Folder_Name][Prefix+" "+ Upload_Type] = file_location
         newData = json.dumps(data, indent=4)
 
-    with open('backup_config.json', 'w') as file:
+    with open('config.json', 'w') as file:
         file.write(newData)
 
     # Update Label
     Label.config(text='...'+file_location[-35:])
 
-    # Visual Feed Back
-    button.configure(text="Submited",bg="green")
+    # Visual Feed Back Turn button Orange
+    button.configure(text="Submited",bg="#F27405")
     return button.after(400, lambda: button.configure(text="Open File",bg="#3292e0"))
 
     

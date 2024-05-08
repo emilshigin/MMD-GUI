@@ -56,15 +56,17 @@ def content(self,window,content_frame) -> None:
     production_frame = tk.Frame(content_frame,bd=2,relief="solid")
 
     production_frame.grid_rowconfigure(0,weight=1)
-    production_frame.grid_columnconfigure(0, weight=1)
+    production_frame.grid_columnconfigure(1, weight=1)
 
     production_frame.grid(column= 0, row= 0, sticky="news")
 
-    left_production_frame = ttk.Frame(production_frame, padding = (5,5,0,0),relief="solid")
+    
+    left_production_frame = ttk.Frame(production_frame, padding = (25,5,25,0),relief="solid")
     left_production_frame.grid(column=0,row=0,sticky="news")
 
     right_production_frame = ttk.Frame(production_frame, padding = (20,5,40,0),relief="solid")
     right_production_frame.grid(column=1,row=0,sticky="news")
+
 
     # Left Column
     # Device Image
