@@ -67,7 +67,7 @@ class device:
     def push_to_device(self,device_name):   
         self.usb.close()
 
-        data = json.load(open(file="backup_config.json"))
+        data = json.load(open(file="config.json"))
         data["Pico Neo 3"]["Current VF APK"]
         
         print("Push to devices: ",device_name)
@@ -81,7 +81,7 @@ class device:
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
                 # Puplometer
-            temp_str = data["Current PM APK"]["Current App Manager APK"] 
+            temp_str = data["Pico Neo 3"]["Current PM APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
