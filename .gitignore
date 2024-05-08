@@ -2,7 +2,7 @@
 practice.ipynb
 adbkey
 adbkey.pub
-startup_config.json
+config.json
 
 #ignore dir
 .ipynb_checkpoints/
