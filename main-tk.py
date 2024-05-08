@@ -19,7 +19,8 @@ def enter_menu_frame() -> None:
         menu_frame_expanded = True
         window.after_cancel(repeat)
         menu_frame_fill()
- 
+
+#   Minumize Side Menu  
 def leave_menu_frame() -> None:
     global menu_frame_curremt_width,menu_frame_expanded
     menu_frame_curremt_width -= 10
@@ -30,6 +31,7 @@ def leave_menu_frame() -> None:
         window.after_cancel(repeat)
         menu_frame_fill()
 
+# Updates Side Menu bar 
 def menu_frame_fill() -> None:
     global menu_frame_expanded,menu_frame_curremt_width
     if menu_frame_expanded:
@@ -39,7 +41,7 @@ def menu_frame_fill() -> None:
         menu_production_button.config(text="Prod",font=(0,15))
         menu_settings_button.config(text="Set",font=(0,15))
 
-
+# switch_to: string file name from ContentFrames Folder 
 def content_handler(switch_to = None) -> exec:
         if switch_to is not None:
              return exec(switch_to+".content(window,window,content_frame)")
