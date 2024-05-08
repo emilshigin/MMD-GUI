@@ -7,6 +7,7 @@ import os
 import json
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
+BACKUP_CONFIG_DATA = json.load(open(file="backup_config.json"))
 
 def startup_submition(startup,button):
     with open('startup_config.json', 'r') as file:
@@ -28,7 +29,7 @@ def startup_submition(startup,button):
 def option_start_up(self,settings_frame):
     font_size = 1
      # startup Option
-    startup_option_frame = tk.Frame(settings_frame,bd=2,relief="solid")
+    startup_option_frame = tk.Frame(settings_frame,pady=10)
     startup_option_frame.grid(row=1, column=0, sticky= "new")
     startup_option_frame.grid_rowconfigure(1,weight=1)
     startup_option_frame.grid_columnconfigure(1, weight=1)
@@ -66,7 +67,7 @@ def option_start_up(self,settings_frame):
 # Step 1: make copy of APK and File
 # Step 2: Get a history of the Files
 # Step 3: Select Current Apk  
-def file_upload(Backup_Folder_Name, Upload_Type,Prefix = None ):
+def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
     initialdir_str = THIS_FILE_DIR+'/Backup'
     file_location = filedialog.askopenfilename(title="Select a File",initialdir=initialdir_str ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
@@ -85,26 +86,104 @@ def file_upload(Backup_Folder_Name, Upload_Type,Prefix = None ):
     print("File Location of APK: ", file_location)
     with open('backup_config.json', 'r') as file:
         data = json.load(file)
-        data[Backup_Folder_Name] = {Prefix+" "+ Upload_Type : file_location }
+        data[Backup_Folder_Name][Prefix+" "+ Upload_Type] = file_location
         newData = json.dumps(data, indent=4)
 
     with open('backup_config.json', 'w') as file:
         file.write(newData)
+
+    # Update Label
+    Label.config(text='...'+file_location[-35:])
+
+    # Visual Feed Back
+    button.configure(text="Submited",bg="green")
+    return button.after(400, lambda: button.configure(text="Open File",bg="#3292e0"))
+
+    
+def notebook_neo_3(frame):
+    frame.grid(row=0, column=0, sticky="news")
+    frame.grid_rowconfigure(3,weight=1)
+    frame.grid_columnconfigure(0, weight=1)
+
+    # Row One
+    frame_row_1 = tk.Frame(frame,pady=10,background='white',relief='ridge')
+    frame_row_1.grid(row=0, column=0, sticky="news")
+    frame_row_1.grid_rowconfigure(1,weight=1)
+    frame_row_1.grid_columnconfigure(0, weight=1)
+
+    # VF APK Label
+    current_vf_label = tk.Label(frame_row_1, text="Current VF APK:",background='white')
+    current_vf_label.grid(row=0, column=0, sticky="nws")
+
+    # VF APK path
+    current_vf_label = tk.Label(frame_row_1, text="..."+BACKUP_CONFIG_DATA["Pico Neo 3"]["Current VF APK"][-35:],background='white')
+    current_vf_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to telect file
+    open_button_vf = tk.Button(frame_row_1, text="Open File", command=lambda:file_upload(open_button_vf,current_vf_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "VF APK"))    
+    open_button_vf.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_vf.grid(row=0, column=2,padx=10, sticky="nes")
+    
+    # Row Two
+    frame_row_2 = tk.Frame(frame,pady=10,relief='ridge')
+    frame_row_2.grid(row=1, column=0, sticky="news")
+    frame_row_2.grid_rowconfigure(1,weight=1)
+    frame_row_2.grid_columnconfigure(0, weight=1)
+
+    # AM APK Label
+    current_am_label = tk.Label(frame_row_2, text="Current App Manager APK:")
+    current_am_label.grid(row=0, column=0, sticky="nws")
+
+    # AM APK path
+    current_am_label = tk.Label(frame_row_2, text="..."+BACKUP_CONFIG_DATA["Pico Neo 3"]["Current App Manager APK"][-35:])
+    current_am_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to Select file
+    open_button_am = tk.Button(frame_row_2, text="Open File", command=lambda:file_upload(open_button_am,current_am_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "App Manager APK"))    
+    open_button_am.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_am.grid(row=0, column=2,padx=10, sticky="nes")
+
+    # Row 3
+    frame_row_3 = tk.Frame(frame,pady=10,background='white',relief='ridge')
+    frame_row_3.grid(row=2, column=0, sticky="news")
+    frame_row_3.grid_rowconfigure(1,weight=1)
+    frame_row_3.grid_columnconfigure(0, weight=1)
+
+    # PM APK Label
+    current_pm_label = tk.Label(frame_row_3,background='white', text="Current PM APK:")
+    current_pm_label.grid(row=0, column=0, sticky="nws")
+
+    # PM APK path
+    current_pm_label = tk.Label(frame_row_3,background='white', text="..."+BACKUP_CONFIG_DATA["Pico Neo 3"]["Current PM APK"][-35:])
+    current_pm_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to Select file
+    open_button_pm = tk.Button(frame_row_3, text="Open File", command=lambda:file_upload(open_button_pm,current_pm_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "PM APK"))    
+    open_button_pm.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_pm.grid(row=0, column=2,padx=10, sticky="nes")
+
+    # Row 4
+    frame_row_4 = tk.Frame(frame,pady=10,relief='ridge')
+    frame_row_4.grid(row=3, column=0, sticky="news")
+    frame_row_4.grid_rowconfigure(1,weight=1)
+    frame_row_4.grid_columnconfigure(0, weight=1)
+
+    # DA Calib Label
+    current_da_label = tk.Label(frame_row_4, text="Current DA Calib:")
+    current_da_label.grid(row=0, column=0, sticky="nws")
+
+    # DA Calib path
+    current_da_label = tk.Label(frame_row_4, text="..."+BACKUP_CONFIG_DATA["Pico Neo 3"]["Current DA Calib"][-35:])
+    current_da_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to Select file
+    open_button_da = tk.Button(frame_row_4, text="Open File", command=lambda:file_upload(open_button_da,current_pm_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "DA Calib"))    
+    open_button_da.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_da.grid(row=0, column=2,padx=10, sticky="nes")
+
     
 
 
-def notebook_neo_3(frame):
-    frame.grid(row=0, column=0, sticky="news")
-    frame.grid_rowconfigure(1,weight=1)
-    frame.grid_columnconfigure(0, weight=1)
-
-    # VF
-    select_vf_label = tk.Label(frame, text="Selected VF APK:")
-    select_vf_label.grid(row=0, column=0, sticky="news")
-
-    # Button to telect file
-    open_button = tk.Button(frame, text="Open File", command=lambda:file_upload(Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "VF APK"))    
-    open_button.grid(row=0, column=1, sticky="news")
 
 
 def notebook_G3(frame):
