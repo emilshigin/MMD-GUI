@@ -59,7 +59,7 @@ if __name__ == '__main__':
     window = tk.Tk()
     window.title('MMD Software')
     window.geometry('600x400')
-    icon_path = THIS_FILE_DIR+'\\mmd\\images\\mmd_logo.png'
+    icon_path = THIS_FILE_DIR+'\\MMD-GUI\\images\\mmd_logo.png'
     window.iconphoto(False,tk.PhotoImage(file=icon_path))
     window.minsize(width=600, height=400)
     window.maxsize(width=800, height=500)
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     # Frames defualts
 
     menu_frame_min_width = 50
-    menu_frame_max_width = 100
+    menu_frame_max_width = 110
     menu_frame_curremt_width = menu_frame_min_width
     menu_frame_expanded = False
     window_bottom_bar_hieght = 15
