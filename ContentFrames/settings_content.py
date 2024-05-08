@@ -64,13 +64,14 @@ def option_start_up(self,settings_frame):
 
 # NoteBook
 
-# Step 1: make copy of APK and File
-# Step 2: Get a history of the Files
-# Step 3: Select Current Apk  
+# Step 1: Open Folder and select file 
+# Step 2: Make copy of File if not in local dir
+# Step :  Save the current APK to Use as defualt
+# Step 3: Give Visual Feadback that option was saved 
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
     initialdir_str = THIS_FILE_DIR+'/Backup'
-    file_location = filedialog.askopenfilename(title="Select a File",initialdir=initialdir_str ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
+    file_location = filedialog.askopenfilename(title=f"Select {Upload_Type} For {Backup_Folder_Name}",initialdir=initialdir_str ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
     file_name = file_location.split("/")[-1]
     print("Current path:",THIS_FILE_DIR)
     backup_file_location = THIS_FILE_DIR+'/Backup'
@@ -177,7 +178,7 @@ def notebook_neo_3(frame):
     current_da_label.grid(row=0, column=1, padx= 15, sticky="nes")
 
     # Button to Select file
-    open_button_da = tk.Button(frame_row_4, text="Open File", command=lambda:file_upload(open_button_da,current_pm_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "DA Calib"))    
+    open_button_da = tk.Button(frame_row_4, text="Open File", command=lambda:file_upload(open_button_da,current_da_label,Prefix ="Current" ,Backup_Folder_Name = "Pico Neo 3",Upload_Type= "DA Calib"))    
     open_button_da.config(relief='groove',foreground="white",background="#3292e0")
     open_button_da.grid(row=0, column=2,padx=10, sticky="nes")
 
@@ -188,8 +189,46 @@ def notebook_neo_3(frame):
 
 def notebook_G3(frame):
     frame.grid(row=0, column=0, sticky="news")
-    frame.grid_rowconfigure(1,weight=1)
+    frame.grid_rowconfigure(3,weight=1)
     frame.grid_columnconfigure(0, weight=1)
+
+    # Row One
+    frame_row_1 = tk.Frame(frame,pady=10,background='white',relief='ridge')
+    frame_row_1.grid(row=0, column=0, sticky="news")
+    frame_row_1.grid_rowconfigure(1,weight=1)
+    frame_row_1.grid_columnconfigure(0, weight=1)
+
+    # VF APK Label
+    current_vf_label = tk.Label(frame_row_1, text="Current VF APK:",background='white')
+    current_vf_label.grid(row=0, column=0, sticky="nws")
+
+    # VF APK path
+    current_vf_label = tk.Label(frame_row_1, text="..."+BACKUP_CONFIG_DATA["PICO G3"]["Current VF APK"][-35:],background='white')
+    current_vf_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to telect file
+    open_button_vf = tk.Button(frame_row_1, text="Open File", command=lambda:file_upload(open_button_vf,current_vf_label,Prefix ="Current" ,Backup_Folder_Name = "PICO G3",Upload_Type= "VF APK"))    
+    open_button_vf.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_vf.grid(row=0, column=2,padx=10, sticky="nes")
+    
+    # Row Two
+    frame_row_2 = tk.Frame(frame,pady=10,relief='ridge')
+    frame_row_2.grid(row=1, column=0, sticky="news")
+    frame_row_2.grid_rowconfigure(1,weight=1)
+    frame_row_2.grid_columnconfigure(0, weight=1)
+
+    # AM APK Label
+    current_am_label = tk.Label(frame_row_2, text="Current App Manager APK:")
+    current_am_label.grid(row=0, column=0, sticky="nws")
+
+    # AM APK path
+    current_am_label = tk.Label(frame_row_2, text="..."+BACKUP_CONFIG_DATA["PICO G3"]["Current App Manager APK"][-35:])
+    current_am_label.grid(row=0, column=1, padx= 15, sticky="nes")
+
+    # Button to Select file
+    open_button_am = tk.Button(frame_row_2, text="Open File", command=lambda:file_upload(open_button_am,current_am_label,Prefix ="Current" ,Backup_Folder_Name = "PICO G3",Upload_Type= "App Manager APK"))    
+    open_button_am.config(relief='groove',foreground="white",background="#3292e0")
+    open_button_am.grid(row=0, column=2,padx=10, sticky="nes")
 
 
 def notebook_frame(self,settings_frame):
