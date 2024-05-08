@@ -1,4 +1,5 @@
 # adb commands: https://github.com/GhettoGeek/ADB 
+import json
 from adb_shell.adb_device import  AdbDeviceUsb
 from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
@@ -65,35 +66,38 @@ class device:
 
     def push_to_device(self,device_name):   
         self.usb.close()
+
+        data = json.load(open(file="backup_config.json"))
+        data["Pico Neo 3"]["Current VF APK"]
         
         print("Push to devices: ",device_name)
         if(device_name == 'Pico Neo 3 Pro Eye'):
             # Push Files
             # DA Calabration
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\DA_Calib_DoNotDelete.txt'
+            temp_str = data["Pico Neo 3"]["Current DA Calib"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
                 # App Manager
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\\\MMD_AppManager_3.apk'
+            temp_str = data["Pico Neo 3"]["Current App Manager APK"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
                 # Puplometer
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\PM2000_1.1.8.apk'
+            temp_str = data["Current PM APK"]["Current App Manager APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
                 # VF2000
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\VR2KN3_1_4_12.apk'
+            temp_str = data["Pico Neo 3"]["Current VF APK"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
-        if ( device_name == "PICO G3"):
+        elif ( device_name == "PICO G3"):
              # Push Files
                 # App Manager
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico G3\\\\MMD_AppManager_3.apk'
+            temp_str = data["PICO G3"]["Current App Manager APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
                 # VF2000
-            temp_str = THIS_FILE_DIR+'\\Backup\\Pico Neo 3\\VR2KN3_1_4_12.apk'
+            temp_str = data["PICO G3"]["Current VF APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
