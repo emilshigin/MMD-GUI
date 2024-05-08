@@ -1,5 +1,8 @@
 {
     "Pico Neo 3": {
-        "Current VF APK": "c:/Users/emil/Documents/GitHub/MMD-GUI/Backup/Pico Neo 3/VF2000_Controller-1_4_18_BL_FDT FIX.apk"
+        "Current App Manager APK": "C:/Users/emil/Documents/GitHub/MMD-GUI/Backup/Pico Neo 3/MMD_AppManager_3.apk",
+        "Current VF APK": "C:/Users/emil/Documents/GitHub/MMD-GUI/Backup/Pico Neo 3/VR2KN3_1_4_12.apk",
+        "Current PM APK": "C:/Users/emil/Documents/GitHub/MMD-GUI/Backup/Pico Neo 3/PM2000_1.1.8.apk",
+        "Current DA Calib": "C:/Users/emil/Documents/GitHub/MMD-GUI/Backup/Pico Neo 3/DA_Calib_DoNotDelete.txt"
     }
 }
