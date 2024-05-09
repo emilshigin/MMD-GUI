@@ -88,7 +88,7 @@ def content(self,window,content_frame) -> None:
     left_production_frame = ttk.Frame(production_frame, padding = (25,5,25,0),relief="solid")
     left_production_frame.grid(column=0,row=0,sticky="news")
 
-    right_production_frame = ttk.Frame(production_frame, padding = (20,5,10,0),relief="solid")
+    right_production_frame = ttk.Frame(production_frame,padding = (20,5,15,0),relief="solid")
     right_production_frame.grid(column=1,row=0,sticky="news")
 
 
@@ -136,7 +136,7 @@ def content(self,window,content_frame) -> None:
     # Top Bar
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
-    device_scan_label = tk.Label(device_sync_top,text=device_info['name'],padx=10)
+    device_scan_label = tk.Label(device_sync_top,text=device_info['name'],width=20)
     device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:threading.Thread(target=finding_devices, args=(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label,device_check_list)).start())
 
     device_sync_top.grid_columnconfigure(0,weight=1)
