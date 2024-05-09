@@ -5,6 +5,7 @@ from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
 import os
 import re
+import tkinter as tk
 
 
 THIS_FILE_DIR = os.path.dirname(__file__)
@@ -64,7 +65,7 @@ class device:
             "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
         }
 
-    def push_to_device(self,device_name):   
+    def push_to_device(self,device_name,order_counter,device_check_list):   
         self.usb.close()
 
         data = json.load(open(file="config.json"))
@@ -72,37 +73,67 @@ class device:
         
         print("Push to devices: ",device_name)
         if(device_name == 'Pico Neo 3 Pro Eye'):
+            #Make Device Chacklist Label
+            pushing_da = tk.Label(device_check_list,text='Pushing DA Calib')
+            install_am = tk.Label(device_check_list,text='Installing App Manager')
+            install_pm = tk.Label(device_check_list,text='Installing PM APK')
+            install_vf = tk.Label(device_check_list,text='Installing VF APK')
+
             # Push Files
             # DA Calabration
+            order_counter+=1
+            pushing_da.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["Pico Neo 3"]["Current DA Calib"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
+
+
                 # App Manager
+            order_counter+=1
+            install_am.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["Pico Neo 3"]["Current App Manager APK"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
+
                 # Puplometer
+            order_counter+=1
+            install_pm.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["Pico Neo 3"]["Current PM APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
                 # VF2000
+            order_counter+=1
+            install_vf.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["Pico Neo 3"]["Current VF APK"]
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
 
         elif ( device_name == "PICO G3"):
-             # Push Files
-                # App Manager
+            install_am = tk.Label(device_check_list,text='Installing App Manager')
+            install_vf = tk.Label(device_check_list,text='Installing VF APK')
+
+
+            # Push Files
+            #   # App Manager
+            order_counter+=1
+            install_am.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["PICO G3"]["Current App Manager APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
-                # VF2000
+            
+            #   # VF2000
+            order_counter+=1
+            install_vf.grid(row=order_counter, column=0,sticky='we')
             temp_str = data["PICO G3"]["Current VF APK"] 
             os.system(f'adb push "{temp_str}" /storage/emulated/0/Download')
             os.system(f'adb install "{temp_str}"')
-
+            
         else:
             print("Devices No Yet Setup: ",device_name)
+
+        done = tk.Label(device_check_list,text='All Porcesses Finished')
+        order_counter+=1
+        done.grid(row=order_counter, column=0,sticky='we')
 
     # List od adb commands
     # https://gist.github.com/Pulimet/5013acf2cd5b28e55036c82c91bd56d8
