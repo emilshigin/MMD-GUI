@@ -37,7 +37,8 @@ Last entry is always "All Porcesses Finished"
 <img src="https://github.com/emilshigin/MMD-GUI/assets/71671062/4c48c3b5-f7b6-46dd-85f6-672466bf31c8" alt="GIF of how to changing stratup page in the settings options " width="600">
 
 ### *Selecting Folder to Upload* 
-![Settings uploading](https://github.com/emilshigin/MMD-GUI/assets/71671062/584168d6-d7e8-4008-a620-7568227dcbe7) 
+<img src="https://github.com/emilshigin/MMD-GUI/assets/71671062/584168d6-d7e8-4008-a620-7568227dcbe7" alt="GIF of how to set upload files " width="600">
+
 * When a selected file is not in the backup directory a copy is made
 * Device specific tabs
   
