@@ -55,7 +55,6 @@ class device:
                 "Bluetooth Adress" : "##:##:##:##:##:##",
             }
         return {
-            # Neo 3[Before Update]: pxr.vendorhw.product.model
             "name" : self.usb.shell('getprop pxr.vendorhw.product.model').strip(),
             "Internal SN" : self.usb.shell('getprop ro.serialno').strip(),
             "MAC Address" : re.search(
@@ -66,11 +65,13 @@ class device:
         }
 
     def push_to_device(self,device_name,order_counter,device_check_list):   
-        if self.usb.available:
+        
+        try:
             self.usb.close()
+        except:
+            pass
 
         data = json.load(open(file="config.json"))
-        data["Pico Neo 3"]["Current VF APK"]
         
         print("Push to devices: ",device_name)
         if(device_name == 'Pico Neo 3 Pro Eye'):
@@ -132,17 +133,10 @@ class device:
         else:
             print("Devices No Yet Setup: ",device_name)
 
+        # Add the last line in feedback loop
         done = tk.Label(device_check_list,text='All Porcesses Finished')
         order_counter+=1
         done.grid(row=order_counter, column=0,sticky='we')
 
-    # List od adb commands
-    # https://gist.github.com/Pulimet/5013acf2cd5b28e55036c82c91bd56d8
-    # python uninstall uninstall com.MMD.VR2KN3
-    # Neo2 [pxr.vendorhw.product.model]: [Pico Neo 2 Eye]
-
-    # Push files and apg
-    # push apk mmd manager
-    # install apk  
   
 
