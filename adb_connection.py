@@ -66,7 +66,8 @@ class device:
         }
 
     def push_to_device(self,device_name,order_counter,device_check_list):   
-        self.usb.close()
+        if self.usb.available:
+            self.usb.close()
 
         data = json.load(open(file="config.json"))
         data["Pico Neo 3"]["Current VF APK"]
