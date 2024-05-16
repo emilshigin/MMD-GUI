@@ -7,7 +7,9 @@ import os
 import json
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-BACKUP_CONFIG_DATA = json.load(open(file="config.json"))
+print('Settings','THIS_FILE_DIR= ',THIS_FILE_DIR)
+config_path = (THIS_FILE_DIR+'/config.json')
+BACKUP_CONFIG_DATA = json.load(open(file=config_path))
 
 def startup_submition(startup,button):
     with open('config.json', 'r') as file:
@@ -37,11 +39,11 @@ def option_start_up(self,settings_frame):
     startup_label = tk.Label(startup_option_frame,text="Startup Page:",font=font_size,pady=5)
     startup_label.grid(row=1, column=0, sticky="new")
 
-    config_data = json.load(open(file="config.json"))
+    config_data = json.load(open(file=config_path))
 
     # menu value
     option_list = {}
-    basepath = 'ContentFrames/'
+    basepath = THIS_FILE_DIR+'/ContentFrames/'
     with os.scandir(basepath) as entries:
         for entry in entries:
             if entry.is_file() and ".py" in entry.name :

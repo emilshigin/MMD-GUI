@@ -5,7 +5,8 @@ from PIL import Image, ImageTk
 import os
 from adb_connection import device
 
-THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
+THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
+print('Production','THIS_FILE_DIR= ',THIS_FILE_DIR)
 usb_device = device()
 device_info = usb_device.get_device_info()
 

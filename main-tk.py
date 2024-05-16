@@ -5,13 +5,16 @@ import os
 from ContentFrames import production_content
 from ContentFrames import settings_content
 
+# Change \\MMD-GUI if file name changes
+THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")+'/MMD-GUI'
+print('Main','THIS_FILE_DIR= ',THIS_FILE_DIR)
 
-THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__))
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
 def config_data() -> json:
-     data = json.load(open(file="config.json"))
+     config_path = (THIS_FILE_DIR+'/config.json')
+     data = json.load(open(file=config_path))
      return data
 
 def enter_menu_frame() -> None:
@@ -59,7 +62,7 @@ if __name__ == '__main__':
     window = tk.Tk()
     window.title('MMD Software')
     window.geometry('600x400')
-    icon_path = THIS_FILE_DIR+'\\MMD-GUI\\images\\mmd_logo.png'
+    icon_path = THIS_FILE_DIR+'/images/mmd_logo.png'
     window.iconphoto(False,tk.PhotoImage(file=icon_path))
     window.minsize(width=600, height=400)
     window.maxsize(width=800, height=500)
