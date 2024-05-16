@@ -16,7 +16,7 @@ class device:
         try:
             self.usb = AdbDeviceUsb()
         except:
-            print('No device found')
+            pass
 
     def get_adb_key():
         adbkey = THIS_FILE_DIR+'\\adbkey'

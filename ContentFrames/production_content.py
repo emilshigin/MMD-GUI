@@ -27,13 +27,19 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     # Get the new Info
     usb_device = device()
     device_info = usb_device.get_device_info()
-    print(device_info)
 
-    print("Frames dystroyed")
     # Clear Frame
     for widgets in device_check_list.winfo_children():
       widgets.destroy()
-
+    
+    # If no device is found reset and break out
+    if(device_info['name'] == 'No Device Found'):
+        device_scan_label.config(text=device_info['name'])
+        update_device_photo(self,device_image_label,device_info['name'])
+        mac_address_responce.config(text='##:##:##:##:##:##')
+        bluetooth_address_responce.config(text='##:##:##:##:##:##')
+        isn_responce.config(text='#################')
+        return
 
     #Make Device Chacklist Label
     order_counter = 0
@@ -42,6 +48,7 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     checked_bluetooth_address = tk.Label(device_check_list,text='Checked Bluetooth Address')
     checked_isn = tk.Label(device_check_list,text='Checked ISN Number')
 
+    
     # Update display of new info
     device_scan_label.config(text=device_info['name'])
     checked_device_name.grid(row=order_counter, column=0,sticky='we')
@@ -60,17 +67,15 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
 
     # Update Image
     update_device_photo(self,device_image_label,device_info['name'])
-
+    
     #Push Device 
     usb_device.push_to_device(device_info['name'],order_counter,device_check_list)
 
 def update_device_photo(self,device_image_label,device_info_name):
     self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
     if(device_info_name == 'Pico Neo 3 Pro Eye'):
-        print("set Neo 3 image")
         self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpg")).resize((200,140)))
     elif(device_info_name == 'PICO G3'):
-        print("set G3 image")
         self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G3.jpg")).resize((200,140)))
     device_image_label.config(image=self.device_image)
     device_image_label.image=self.device_image
@@ -90,7 +95,6 @@ def content(self,window,content_frame) -> None:
 
     right_production_frame = ttk.Frame(production_frame,padding = (20,5,15,0),relief="solid")
     right_production_frame.grid(column=1,row=0,sticky="news")
-
 
     # Left Column
     # Device Image
