@@ -7,7 +7,6 @@ from ContentFrames import settings_content
 
 # Change \\MMD-GUI if file name changes
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")+'/MMD-GUI'
-print('Main','THIS_FILE_DIR= ',THIS_FILE_DIR)
 
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar

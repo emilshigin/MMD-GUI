@@ -7,7 +7,6 @@ import os
 import json
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-print('Settings','THIS_FILE_DIR= ',THIS_FILE_DIR)
 config_path = (THIS_FILE_DIR+'/config.json')
 BACKUP_CONFIG_DATA = json.load(open(file=config_path))
 
