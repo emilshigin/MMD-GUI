@@ -64,7 +64,7 @@ if __name__ == '__main__':
     window.geometry('600x400')
     icon_path = THIS_FILE_DIR+'/images/mmd_logo.png'
     window.iconphoto(False,tk.PhotoImage(file=icon_path))
-    window.minsize(width=600, height=400)
+    window.minsize(width=625, height=400)
     window.maxsize(width=800, height=500)
     window.update()
 
