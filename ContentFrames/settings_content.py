@@ -7,16 +7,16 @@ import os
 import json
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-config_path = (THIS_FILE_DIR+'/config.json')
-BACKUP_CONFIG_DATA = json.load(open(file=config_path))
+CONFIG_PATH = (THIS_FILE_DIR+'/config.json')
+BACKUP_CONFIG_DATA = json.load(open(file=CONFIG_PATH))
 
 def startup_submition(startup,button):
-    with open('config.json', 'r') as file:
+    with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
         data["start_page"] = startup
         newData = json.dumps(data, indent=4)
 
-    with open('config.json', 'w') as file:
+    with open(CONFIG_PATH, 'w') as file:
         file.write(newData)
     
     button.configure(text="Submited",bg="#F27405")
@@ -38,7 +38,7 @@ def option_start_up(self,settings_frame):
     startup_label = tk.Label(startup_option_frame,text="Startup Page:",font=font_size,pady=5)
     startup_label.grid(row=1, column=0, sticky="new")
 
-    config_data = json.load(open(file=config_path))
+    config_data = json.load(open(file=CONFIG_PATH))
 
     # menu value
     option_list = {}
@@ -86,12 +86,12 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
         file_location = backup_file_location+"/"+file_name
     
     print("File Location of APK: ", file_location)
-    with open('config.json', 'r') as file:
+    with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
         data[Backup_Folder_Name][Prefix+" "+ Upload_Type] = file_location
         newData = json.dumps(data, indent=4)
 
-    with open('config.json', 'w') as file:
+    with open(CONFIG_PATH, 'w') as file:
         file.write(newData)
 
     # Update Label
