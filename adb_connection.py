@@ -9,6 +9,8 @@ import tkinter as tk
 
 
 THIS_FILE_DIR = os.path.dirname(__file__)
+CONFIG_PATH = (THIS_FILE_DIR+'/config.json')
+
 
 class device:
 
@@ -71,7 +73,7 @@ class device:
         except:
             pass
 
-        data = json.load(open(file="config.json"))
+        data = json.load(open(file=CONFIG_PATH))
         
         print("Push to devices: ",device_name)
         if(device_name == 'Pico Neo 3 Pro Eye'):
