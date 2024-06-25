@@ -1,13 +1,43 @@
 {
     "start_page": "settings_content",
-    "Pico Neo 3": {
-        "Current VF APK": "C:/Users/Castle/Documents/Programing/python/MMD/Backup/Pico Neo 3/VR2KN3_1_4_9.apk",
-        "Current App Manager APK": "C:/Users/Castle/Documents/Programing/python/MMD/Backup/Pico Neo 3/MMD_AppManager_3.apk",
-        "Current PM APK": "C:/Users/Castle/Documents/Programing/python/MMD/Backup/Pico Neo 3/PM2000_1.1.7.apk",
-        "Current DA Calib": "C:/Users/Castle/Documents/Programing/python/MMD/Backup/Pico Neo 3/PM2000_1.1.7.apk"
+    "Pico Neo 3 Pro Eye": {
+        "Current VF APK": {
+            "Want": "1",
+            "Text": "Installing VF APK",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current App Manager APK": {
+            "Want": "1",
+            "Text": "Installing App Manager",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current PM APK": {
+            "Want": "1",
+            "Text": "Installing PM APK",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current DA Calib": {
+            "Want": "1",
+            "Text": "Pushing DA Calib",
+            "Path": "...",
+            "ADP command": "push"
+        }
     },
     "PICO G3": {
-        "Current VF APK": "C:/Users/Castle/Documents/Programing/python/MMD/Backup/PICO G3/VR2KN3_1_4_9.apk",
-        "Current App Manager APK": "c:/Users/Castle/Documents/Programing/python/MMD/Backup/PICO G3/MMD_AppManager_3.apk"
+        "Current VF APK": {
+            "Want": "1",
+            "Text": "Installing VF APK",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current App Manager APK": {
+            "Want": "1",
+            "Text": "Installing App Manager",
+            "Path": "...",
+            "ADP command": "install"
+        }    
     }
 }
