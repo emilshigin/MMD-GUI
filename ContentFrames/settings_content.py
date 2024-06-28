@@ -10,6 +10,7 @@ THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
 CONFIG_PATH = (THIS_FILE_DIR+'/config.json')
 BACKUP_CONFIG_DATA = json.load(open(file=CONFIG_PATH))
 
+# Save Startup Selection
 def startup_submition(startup,button):
     with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
@@ -22,11 +23,9 @@ def startup_submition(startup,button):
     button.configure(text="Submited",bg="#F27405")
     return button.after(800, lambda: button.configure(text="Submit",bg="#3292e0"))
 
-
-
-    # Check if this is the current strart up
-    # Update start up
-
+# Startup Selection
+# Step 1: Check start up  options
+# Step 2: Update start up
 def option_start_up(self,settings_frame):
     font_size = 1
      # startup Option
@@ -63,7 +62,11 @@ def option_start_up(self,settings_frame):
     startup_submit_button.config(relief='groove', font=font_size,foreground="white",background="#3292e0")
     startup_submit_button.grid(row=1,column=2, sticky="ne",padx=15)
 
-# NoteBook
+################################################################
+#                                                              #
+#                         NoteBook                             #
+#                                                              #
+################################################################
 
 # Step 1: Open Folder and select file 
 # Step 2: Make copy of File if not in local dir
@@ -101,22 +104,34 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
     button.configure(text="Submited",bg="#F27405")
     return button.after(400, lambda: button.configure(text="Open File",bg="#3292e0"))
 
-    
-def notebook_neo_3(frame):
-    device_name = "Pico Neo 3 Pro Eye"
+# Content On each Tab 
+def notebook_content(frame: ttk.Frame,device_name: str):
+    # Read Json File
     data = json.load(open(file=CONFIG_PATH))
     device_upload_list = list(data[device_name].keys())
+    
+    # Set up frame
+    frame.grid(row=0, column=0, sticky="news")
+
+    # grid_rowconfigure will cause the rows to not be in order
+    frame.grid_columnconfigure(0, weight=1)
+
+    # Generate Each Row
     row = []
+
+    # Item in each rowm
     item_name = []
     path_name = []
     button_submit = []
+    
     for count, item in enumerate(device_upload_list):
         row_bg = 'white' if count %2 else "#f0f0f0"
         
-        row.append(tk.Frame(frame,pady=10,background=row_bg,relief='ridge'))
-        row[count].grid(row=count, column=0, sticky="news")
+        # Create Row
+        row.append(tk.Frame(frame,pady=10,background=row_bg))
+        row[count].grid(row=count, column=0, sticky="new")
         row[count].grid_rowconfigure(0,weight=1)
-        row[count].grid_columnconfigure(2, weight=1)
+        row[count].grid_columnconfigure(0, weight=1)
 
         # Name of Catagory
         item_name.append(tk.Label(row[count], text=item,background=row_bg))
@@ -128,57 +143,11 @@ def notebook_neo_3(frame):
         path_name[count].grid(row=count, column=1, padx= 15, sticky="nes")
 
         # Button
-        button_submit.append(tk.Button(row[count], text="Open File", command=lambda i = count, item = item: file_upload(button = button_submit[i],Label = path_name[i],Prefix ="Current" ,Backup_Folder_Name = device_name,Upload_Type= item)))    
+        button_submit.append(tk.Button(row[count],text="Open File", command=lambda i = count, item = item: file_upload(button = button_submit[i],Label = path_name[i],Prefix ="Current" ,Backup_Folder_Name = device_name,Upload_Type= item)))    
         button_submit[count].config(relief='groove',foreground="white",background="#3292e0")
         button_submit[count].grid(row=count, column=2,padx=10, sticky="nes")            
-        
-   
-def notebook_G3(frame):
-    print("pass")
-    pass
-#     frame.grid(row=0, column=0, sticky="news")
-#     frame.grid_rowconfigure(3,weight=1)
-#     frame.grid_columnconfigure(0, weight=1)
 
-#     # Row One
-#     frame_row_1 = tk.Frame(frame,pady=10,background='white',relief='ridge')
-#     frame_row_1.grid(row=0, column=0, sticky="news")
-#     frame_row_1.grid_rowconfigure(1,weight=1)
-#     frame_row_1.grid_columnconfigure(0, weight=1)
-
-#     # VF APK Label
-#     current_vf_label = tk.Label(frame_row_1, text="Current VF APK:",background='white')
-#     current_vf_label.grid(row=0, column=0, sticky="nws")
-
-#     # VF APK path
-#     current_vf_label = tk.Label(frame_row_1, text="..."+BACKUP_CONFIG_DATA["PICO G3"]["Current VF APK"]["Path"][-35:],background='white')
-#     current_vf_label.grid(row=0, column=1, padx= 15, sticky="nes")
-
-#     # Button to telect file
-#     open_button_vf = tk.Button(frame_row_1, text="Open File", command=lambda:file_upload(open_button_vf,current_vf_label,Prefix ="Current" ,Backup_Folder_Name = "PICO G3",Upload_Type= "VF APK"))    
-#     open_button_vf.config(relief='groove',foreground="white",background="#3292e0")
-#     open_button_vf.grid(row=0, column=2,padx=10, sticky="nes")
-    
-#     # Row Two
-#     frame_row_2 = tk.Frame(frame,pady=10,relief='ridge')
-#     frame_row_2.grid(row=1, column=0, sticky="news")
-#     frame_row_2.grid_rowconfigure(1,weight=1)
-#     frame_row_2.grid_columnconfigure(0, weight=1)
-
-#     # AM APK Label
-#     current_am_label = tk.Label(frame_row_2, text="Current App Manager APK:")
-#     current_am_label.grid(row=0, column=0, sticky="nws")
-
-#     # AM APK path
-#     current_am_label = tk.Label(frame_row_2, text="..."+BACKUP_CONFIG_DATA["PICO G3"]["Current App Manager APK"]["Path"][-35:])
-#     current_am_label.grid(row=0, column=1, padx= 15, sticky="nes")
-
-#     # Button to Select file
-#     open_button_am = tk.Button(frame_row_2, text="Open File", command=lambda:file_upload(open_button_am,current_am_label,Prefix ="Current" ,Backup_Folder_Name = "PICO G3",Upload_Type= "App Manager APK"))    
-#     open_button_am.config(relief='groove',foreground="white",background="#3292e0")
-#     open_button_am.grid(row=0, column=2,padx=10, sticky="nes")
-#  
-
+# Frame that hold the Notebook  
 def notebook_frame(self,settings_frame):
     # Place Notebook
     notebook_frame = tk.Frame(settings_frame,pady=5)
@@ -198,33 +167,31 @@ def notebook_frame(self,settings_frame):
     # Create pages in Notebook
     neo_3_notebook_frame = ttk.Frame(notebook)
     g3_notebook_frame = ttk.Frame(notebook)
-    
-        # Place Content in Page   
-    notebook_neo_3(neo_3_notebook_frame)
-    notebook_G3(g3_notebook_frame)
+
+    # Place Content in Page   
+    notebook_content(neo_3_notebook_frame,"Pico Neo 3 Pro Eye")
+    notebook_content(g3_notebook_frame,"PICO G3")
 
     # Call the pages
     notebook.add(neo_3_notebook_frame, text = "Neo 3")
     notebook.add(g3_notebook_frame, text = "G3")
     
-
-
+# Layout for setting page
 def content(self,window,content_frame):
     self.window = window
+
+    # Top lable
+    settings_label_frame = tk.Frame(settings_frame)
+    settings_label_frame.grid(row=0, column=0, sticky= "ns")
+    settings_label = tk.Label(settings_label_frame,text="Settings Page",font=("Arial",25))
+    settings_label.grid(row=0, column=0)
     
-    #Settings Layout Setup
+    # Settings Layout Setup
     settings_frame = tk.Frame(content_frame,bd=1,relief="solid")
     settings_frame.grid(column= 0, row= 0, sticky="news")
     settings_frame.grid_rowconfigure(2,weight=1)
     settings_frame.grid_columnconfigure(0, weight=1)
 
-    #Top lable
-    settings_label_frame = tk.Frame(settings_frame)
-    settings_label_frame.grid(row=0, column=0, sticky= "ns")
-    settings_label = tk.Label(settings_label_frame,text="Settings Page",font=("Arial",25))
-    settings_label.grid(row=0, column=0)
-
+    # Render Layout 
     option_start_up(self,settings_frame)  
     notebook_frame(self,settings_frame)
-    
-
