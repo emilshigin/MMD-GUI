@@ -91,9 +91,14 @@ class device:
                     count += 1
 
                     # Command implementation
-                    path = data[device_name][upload_list]['Path']
                     command = data[device_name][upload_list]['ADP command']
-                    os.system(f'adb "{command}" "{path}"')
+                    path = '"'+data[device_name][upload_list]['Path']+'"'
+
+                    device_storage_path = ""
+                    if('Device Storage Path' in data[device_name][upload_list]):
+                       device_storage_path = '"'+data[device_name][upload_list]['Device Storage Path']+'"'
+
+                    os.system(f'adb {command} {path} {device_storage_path}')
 
                     
             
