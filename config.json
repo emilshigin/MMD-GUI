@@ -1,12 +1,6 @@
 {
     "start_page": "settings_content",
     "Pico Neo 3 Pro Eye": {
-        "Current VF APK": {
-            "Want": "1",
-            "Text": "Installing VF APK",
-            "Path": "...",
-            "ADP command": "install"
-        },
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
@@ -24,20 +18,26 @@
             "Text": "Pushing DA Calib",
             "Path": "...",
             "ADP command": "push"
-        }
-    },
-    "PICO G3": {
-        "Current VF APK": {
+        },
+	"Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
             "Path": "...",
             "ADP command": "install"
-        },
+        }
+    },
+    "PICO G3": {
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
             "Path": "...",
             "ADP command": "install"
-        }    
+        },
+	"Current VF APK": {
+            "Want": "1",
+            "Text": "Installing VF APK",
+            "Path": "...",
+            "ADP command": "install"
+        }
     }
 }
