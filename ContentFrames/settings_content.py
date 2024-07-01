@@ -81,6 +81,7 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
     backup_file_location = THIS_FILE_DIR+'/Backup'
     
     # Write Current File 
+    # [TODO]: Need to check if backup folder exists then make it
     if backup_file_location.upper() not in file_location.upper():
         print("Not In backup:",file_location)
         backup_file_location = backup_file_location+"/"+Backup_Folder_Name

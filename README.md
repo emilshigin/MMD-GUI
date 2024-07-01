@@ -41,3 +41,12 @@ We end the demo by copying the device information into notepad.
 * When a selected file is not in the backup directory a copy is made
 * Select the device tabs to update what files are installed  
   
+### Set Up Application:
+* Remenber to install all the dependencies from the dependancies.txt
+* In the backup folder make a folder for each device w\ the device name 
+* For git
+#### Not track config.json :  
+``` git update-index --assume-unchanged config.json ```
+#### Start tracking config.json again :  
+``` git update-index --no-assume-unchanged config.json ```
+
