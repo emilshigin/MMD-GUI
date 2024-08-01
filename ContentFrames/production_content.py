@@ -77,6 +77,8 @@ def update_device_photo(self,device_image_label,device_info_name):
         self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpg")).resize((200,140)))
     elif(device_info_name == 'PICO G3'):
         self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G3.jpg")).resize((200,140)))
+    elif(device_info_name == 'Pico Neo 2 Eye'):
+        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_2.png")).resize((200,140)))
     device_image_label.config(image=self.device_image)
     device_image_label.image=self.device_image
     

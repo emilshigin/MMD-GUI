@@ -165,17 +165,21 @@ def notebook_frame(self,settings_frame):
     notebook.enable_traversal()
     notebook.grid(row=2,column=0,sticky="news")
     
+    # [Todo] Make a function to  loop this and dynamicly add more frames
     # Create pages in Notebook
     neo_3_notebook_frame = ttk.Frame(notebook)
     g3_notebook_frame = ttk.Frame(notebook)
+    neo_2_notebook_frame = ttk.Frame(notebook)
 
     # Place Content in Page   
     notebook_content(neo_3_notebook_frame,"Pico Neo 3 Pro Eye")
     notebook_content(g3_notebook_frame,"PICO G3")
+    notebook_content(neo_2_notebook_frame,"Pico Neo 2 Eye")
 
     # Call the pages
     notebook.add(neo_3_notebook_frame, text = "Neo 3")
     notebook.add(g3_notebook_frame, text = "G3")
+    notebook.add(neo_2_notebook_frame, text = "Neo 2")
     
 # Layout for setting page
 def content(self,window,content_frame):
