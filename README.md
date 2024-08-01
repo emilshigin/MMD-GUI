@@ -22,7 +22,7 @@ Press "Device Scan" after pluging in a device to computer to get:
 * Installs Apks and Pushes files (Configured in the Settings page) 
 
 ### *Device Scan Button Demo:*  
-<img src="https://github.com/emilshigin/MMD-GUI/assets/71671062/e541daf6-b7ff-42ad-9b50-b1875b07b654" alt="GIF of pressing device scan and retreaving info from diffrent devices" width="600">
+<img src="https://github.com/user-attachments/assets/dd4953ed-6565-496c-a680-c7cb0c321421" alt="GIF of pressing device scan and retreaving info from diffrent devices" width="600">
 
 At the start of the demo no devices was pluged in. \
 Between pressing "Device Scan" a new device was plugged in. 
@@ -33,10 +33,10 @@ We end the demo by copying the device information into notepad.
 
 ## Settings Page 
 ### *Changing Start Up Page* 
-<img src="https://github.com/emilshigin/MMD-GUI/assets/71671062/4c48c3b5-f7b6-46dd-85f6-672466bf31c8" alt="GIF of how to changing stratup page in the settings options " width="600">
+<img src="https://github.com/user-attachments/assets/4d9bc6db-4050-4f66-9d64-870841d035f8" alt="GIF of how to changing stratup page in the settings options " width="600">
 
 ### *Selecting Folder to Upload* 
-<img src="https://github.com/emilshigin/MMD-GUI/assets/71671062/584168d6-d7e8-4008-a620-7568227dcbe7" alt="GIF of how to set upload files " width="600">
+<img src="https://github.com/user-attachments/assets/04402968-bcfc-4c3e-a09e-200ef700c8a5" alt="GIF of how to set upload files " width="600">
 
 * When a selected file is not in the backup directory a copy is made
 * Select the device tabs to update what files are installed  
