@@ -39,5 +39,53 @@
             "Path": "...",
             "ADP command": "install"
         }
+    },
+    "Pico Neo 2 Eye": {
+        "Current App Manager APK": {
+            "Want": "1",
+            "Text": "Installing App Manager",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current PM APK": {
+            "Want": "1",
+            "Text": "Installing PM APK",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current Config": {
+            "Want": "1",
+            "Text": "Pushing DA Calib",
+            "Path": "...",
+            "Path Target": "/storage/emulated/0/",
+            "ADP command": "push"
+        },
+        "Current VF APK": {
+            "Want": "1",
+            "Text": "Installing VF APK",
+            "Path": "...",
+            "ADP command": "install"
+        }
+    },
+    "G2 4K": {
+        "Current App Manager APK": {
+            "Want": "1",
+            "Text": "Installing App Manager",
+            "Path": "...",
+            "ADP command": "install"
+        },
+        "Current Config": {
+            "Want": "1",
+            "Text": "Pushing DA Calib",
+            "Path": "...",
+            "Path Target": "/storage/emulated/0/",
+            "ADP command": "push"
+        },
+        "Current VF APK": {
+            "Want": "1",
+            "Text": "Installing VF APK",
+            "Path": "...",
+            "ADP command": "install"
+        }
     }
 }
