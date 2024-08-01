@@ -170,16 +170,19 @@ def notebook_frame(self,settings_frame):
     neo_3_notebook_frame = ttk.Frame(notebook)
     g3_notebook_frame = ttk.Frame(notebook)
     neo_2_notebook_frame = ttk.Frame(notebook)
+    g2_notebook_frame = ttk.Frame(notebook)
 
     # Place Content in Page   
     notebook_content(neo_3_notebook_frame,"Pico Neo 3 Pro Eye")
     notebook_content(g3_notebook_frame,"PICO G3")
     notebook_content(neo_2_notebook_frame,"Pico Neo 2 Eye")
+    notebook_content(g2_notebook_frame,"G2 4K")
 
     # Call the pages
     notebook.add(neo_3_notebook_frame, text = "Neo 3")
     notebook.add(g3_notebook_frame, text = "G3")
     notebook.add(neo_2_notebook_frame, text = "Neo 2")
+    notebook.add(g3_notebook_frame, text = "G2")
     
 # Layout for setting page
 def content(self,window,content_frame):
