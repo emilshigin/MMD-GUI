@@ -92,12 +92,17 @@ class device:
                 # Command implementation
                 command = data[device_name][upload_list]['ADP command']
                 path = '"'+data[device_name][upload_list]['Path']+'"'
+                if(command == "push"):
+                    path_target = data[device_name][upload_list]['Path Target']
+                else:
+                    path_target = ""
 
                 device_storage_path = ""
                 if('Device Storage Path' in data[device_name][upload_list]):
                     device_storage_path = '"'+data[device_name][upload_list]['Device Storage Path']+'"'
 
-                os.system(f'adb {command} {path} {device_storage_path}')
+                os.system(f'adb {command} {path} {device_storage_path} {path_target}')
+                
 
         # Add the last line in feedback loop
         column.append(tk.Label(device_check_list,text='All Porcesses Finished'))
