@@ -182,7 +182,7 @@ def notebook_frame(self,settings_frame):
     notebook.add(neo_3_notebook_frame, text = "Neo 3")
     notebook.add(g3_notebook_frame, text = "G3")
     notebook.add(neo_2_notebook_frame, text = "Neo 2")
-    notebook.add(g3_notebook_frame, text = "G2")
+    notebook.add(g2_notebook_frame, text = "G2")
     
 # Layout for setting page
 def content(self,window,content_frame):
