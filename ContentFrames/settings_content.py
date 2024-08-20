@@ -72,20 +72,23 @@ def option_start_up(self,settings_frame):
 # Step 2: Make copy of File if not in local dir
 # Step :  Save the current APK to Use as defualt
 # Step 3: Give Visual Feadback that option was saved 
+# [[Error]] Thrown when closing filedialog.askopenfilename
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    initialdir_str = THIS_FILE_DIR+'/Backup'
-    file_location = filedialog.askopenfilename(title=f"Select {Upload_Type} For {Backup_Folder_Name}",initialdir=initialdir_str ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
+    backup_file_location = THIS_FILE_DIR+'/Backup'
+    file_location = filedialog.askopenfilename(title=f"Select {Upload_Type} For {Backup_Folder_Name}",initialdir=backup_file_location ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
     file_name = file_location.split("/")[-1]
     print("Current path:",THIS_FILE_DIR)
-    backup_file_location = THIS_FILE_DIR+'/Backup'
     
-    # Write Current File 
-    # [TODO]: Need to check if backup folder exists then make it
+    # Purpose: Write Current File if not in Backuplocation
     if backup_file_location.upper() not in file_location.upper():
-        print("Not In backup:",file_location)
         backup_file_location = backup_file_location+"/"+Backup_Folder_Name
-        print(f"Make copy in {backup_file_location} folder")
+        
+        # Check and create device folder
+        if not os.path.exists(backup_file_location):
+            os.makedirs(backup_file_location)
+
+        # Add file to the correct device folder and
         shutil.copy2(file_location,backup_file_location)
         file_location = backup_file_location+"/"+file_name
     
