@@ -4,25 +4,26 @@
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/Pico Neo 3 Pro Eye/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current PM APK": {
             "Want": "1",
             "Text": "Installing PM APK",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/Pico Neo 3 Pro Eye/PM2000_1.1.8.apk",
             "ADP command": "install"
         },
         "Current DA Calib": {
             "Want": "1",
             "Text": "Pushing DA Calib",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/Pico Neo 3 Pro Eye/DA_Calib_DoNotDelete.txt",
+            "Path Target": "/storage/emulated/0/Download",
             "ADP command": "push"
         },
-	"Current VF APK": {
+        "Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
-            "Path": "...",
+            "Path": "D:/GitHub/MMD-GUI/Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_10.apk",
             "ADP command": "install"
         }
     },
@@ -30,13 +31,13 @@
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/PICO G3/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
-	"Current VF APK": {
+        "Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/PICO G3/VR2KN3_1_4_12.apk",
             "ADP command": "install"
         }
     },
@@ -44,26 +45,26 @@
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
-            "Path": "...",
-            "ADP command": "install"
-        },
-        "Current PM APK": {
-            "Want": "1",
-            "Text": "Installing PM APK",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/Pico Neo 2 Eye/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
-            "Text": "Pushing DA Calib",
-            "Path": "...",
+            "Text": "Pushing config",
+            "Path": "D:/GitHub/MMD-GUI/Backup/Pico Neo 2 Eye/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
+        },
+        "Current PM APK": {
+            "Want": "1",
+            "Text": "Installing PM",
+            "Path": "D:/GitHub/MMD-GUI/Backup/Pico Neo 2 Eye/PM2000_1.0.19.apk",
+            "ADP command": "install"
         },
         "Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
-            "Path": "...",
+            "Path": "D:/GitHub/MMD-GUI/Backup/Pico Neo 2 Eye/VF2KP_1_4_12.apk",
             "ADP command": "install"
         }
     },
@@ -71,20 +72,20 @@
         "Current App Manager APK": {
             "Want": "1",
             "Text": "Installing App Manager",
-            "Path": "...",
+            "Path": "d:/GitHub/MMD-GUI/Backup/G2 4K/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
-            "Text": "Pushing DA Calib",
-            "Path": "...",
+            "Text": "Pushing config",
+            "Path": "d:/GitHub/MMD-GUI/Backup/G2 4K/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
         },
         "Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
-            "Path": "...",
+            "Path": "D:/GitHub/MMD-GUI/Backup/G2 4K/VF2KP_1_4_12.apk",
             "ADP command": "install"
         }
     }
