@@ -14,9 +14,7 @@ THIS_FILE_DIR = os.path.dirname(__file__)
 # File path of adb_connection:  D:\GitHub\MMD-GUI
 CONFIG_PATH = os.path.join(THIS_FILE_DIR,'config.json')
 
-
 class device:
-
     def __init__(self):
         try:
             self.usb = AdbDeviceUsb()
@@ -138,6 +136,3 @@ class device:
 
         # Final message
         tk.Label(device_check_list, text='All Processes Finished').grid()
-
-  
-
