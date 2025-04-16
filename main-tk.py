@@ -41,11 +41,11 @@ def leave_menu_frame() -> None:
 def menu_frame_fill() -> None:
     global menu_frame_expanded,menu_frame_curremt_width
     if menu_frame_expanded:
-        menu_production_button.config(text="Production",font=(0,15), command=lambda:content_handler("production_content"))
-        menu_settings_button.config(text="Settings",font=(0,15),command=lambda:content_handler("settings_content"))
+        menu_production_button.config(text="🏭 Production",font=(0,16), command=lambda:content_handler("production_content"))
+        menu_settings_button.config(text="⚙️ Settings",font=(0,16),command=lambda:content_handler("settings_content"))
     else:
-        menu_production_button.config(text="Prod",font=(0,15))
-        menu_settings_button.config(text="Set",font=(0,15))
+        menu_production_button.config(text="🏭",font=(0,16))
+        menu_settings_button.config(text="⚙️",font=(0,16))
 
 # switch_to: string file name from ContentFrames Folder 
 def content_handler(switch_to = None) -> exec:
@@ -100,8 +100,8 @@ if __name__ == '__main__':
 
 
     # Menu Content
-    menu_production_button = tk.Button(menu_frame, relief='flat',text="Prod",background="#515759",foreground='white',pady=5, font=(0,15))
-    menu_settings_button = tk.Button(menu_frame,relief='flat',text="Sett",background="#515759",foreground='white',pady=5, font=(0,15))
+    menu_production_button = tk.Button(menu_frame, relief='flat',text="🏭",background="#515759",foreground='white',pady=5, font=(0,16))
+    menu_settings_button = tk.Button(menu_frame,relief='flat',text="⚙️",background="#515759",foreground='white',pady=5, font=(0,16))
 
     menu_production_button.grid(column=0, row = 0 , sticky="new")
     menu_settings_button.grid(column=0, row = 1 , sticky="ews")
