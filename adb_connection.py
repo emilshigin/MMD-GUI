@@ -115,7 +115,7 @@ class device:
             label.grid()
 
             command = item.get("ADP command", "push")
-            path = item.get("Path", "")
+            path = os.path.join(THIS_FILE_DIR,item.get("Path", ""))
             path_target = item.get("Path Target", "")
             device_storage_path = item.get("Device Storage Path", "")
 
