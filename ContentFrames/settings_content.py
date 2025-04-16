@@ -6,9 +6,13 @@ import shutil
 import os
 import json
 
-THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-CONFIG_PATH = (THIS_FILE_DIR+'/config.json')
-BACKUP_CONFIG_DATA = json.load(open(file=CONFIG_PATH))
+THIS_FILE_DIR = os.path.dirname(__file__)
+ROOT_DIR = os.path.dirname(THIS_FILE_DIR)
+CONFIG_PATH = os.path.join(ROOT_DIR,'config.json')
+
+with open(CONFIG_PATH, 'r') as f:
+    BACKUP_CONFIG_DATA = json.load(f)
+
 
 # Save Startup Selection
 def startup_submition(startup,button):
@@ -41,7 +45,7 @@ def option_start_up(self,settings_frame):
 
     # menu value
     option_list = {}
-    basepath = THIS_FILE_DIR+'/ContentFrames/'
+    basepath = os.path.join(ROOT_DIR,'ContentFrames')
     with os.scandir(basepath) as entries:
         for entry in entries:
             if entry.is_file() and ".py" in entry.name :
@@ -75,34 +79,45 @@ def option_start_up(self,settings_frame):
 # [[Error]] Thrown when closing filedialog.askopenfilename
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    backup_file_location = THIS_FILE_DIR+'/Backup'
-    file_location = filedialog.askopenfilename(title=f"Select {Upload_Type} For {Backup_Folder_Name}",initialdir=backup_file_location ,filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")])
-    file_name = file_location.split("/")[-1]
+    backup_file_location = os.path.join(THIS_FILE_DIR,'/Backup')
+    file_location = filedialog.askopenfilename(
+        title=f"Select {Upload_Type} For {Backup_Folder_Name}",
+        initialdir=backup_file_location ,
+        filetypes=[("Andriod APK", "*.apk"), ("All files", "*.*")]
+        )
+    if not file_location:
+        return  # Cancelled
+
+    file_name = os.path.basename(file_location)
     print("Current path:",THIS_FILE_DIR)
     
-    # Purpose: Write Current File if not in Backuplocation
+    # Purpose: Write Current File if not in Backup location
     if backup_file_location.upper() not in file_location.upper():
-        backup_file_location = backup_file_location+"/"+Backup_Folder_Name
+        backup_file_location = os.path.join(backup_file_location, Backup_Folder_Name)
         
         # Check and create device folder
-        if not os.path.exists(backup_file_location):
-            os.makedirs(backup_file_location)
+        os.makedirs(backup_file_location, exist_ok=True)
 
         # Add file to the correct device folder and
         shutil.copy2(file_location,backup_file_location)
-        file_location = backup_file_location+"/"+file_name
+        file_location = os.path.join(backup_file_location, file_name)
     
     print("File Location of APK: ", file_location)
+
+    # Convert to relative path
+    relative_path = os.path.relpath(file_location, THIS_FILE_DIR)
+    print('relative_path: ',relative_path)
+
     with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
-        data[Backup_Folder_Name][Upload_Type]['Path'] = file_location
+        data[Backup_Folder_Name][Upload_Type]['Path'] = relative_path
         newData = json.dumps(data, indent=4)
 
     with open(CONFIG_PATH, 'w') as file:
         file.write(newData)
 
     # Update Label
-    Label.config(text='...'+file_location[-35:])
+    Label.config(text='...'+relative_path[-35:])
 
     # Visual Feed Back Turn button Orange
     button.configure(text="Submited",bg="#F27405")

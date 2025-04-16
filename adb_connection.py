@@ -5,11 +5,14 @@ from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
 import os
 import re
+from subprocess import run
 import tkinter as tk
-
+import time
 
 THIS_FILE_DIR = os.path.dirname(__file__)
-CONFIG_PATH = (THIS_FILE_DIR+'/config.json')
+# print("File path of adb_connection: ",THIS_FILE_DIR)
+# File path of adb_connection:  D:\GitHub\MMD-GUI
+CONFIG_PATH = os.path.join(THIS_FILE_DIR,'config.json')
 
 
 class device:
@@ -17,14 +20,15 @@ class device:
     def __init__(self):
         try:
             self.usb = AdbDeviceUsb()
-        except:
-            pass
+        except Exception as e:
+            print("Failed to initialize ADB USB device:\n\t",e)
+            self.usb = None
 
     def get_adb_key():
-        adbkey = THIS_FILE_DIR+'\\adbkey'
-        with open(adbkey) as f:
+        adb_key_path  = os.path.join(THIS_FILE_DIR,'adbkey')
+        with open(adb_key_path, 'r' ) as f:
             priv = f.read()
-        with open(adbkey + '.pub') as f:
+        with open(adb_key_path  + '.pub','r') as f:
             pub = f.read()
         return PythonRSASigner(pub, priv)
 
@@ -36,77 +40,104 @@ class device:
     # Return: 
     #   dictionary of device info name,internal SN,MAC Address, Bluetooth Adress 
     def get_device_info(self):
-        if(os.path.isfile(THIS_FILE_DIR+"\\adbkey.pub") == False):
-            keygen(THIS_FILE_DIR+'\\adbkey')
-        
-        try:
-            adb_kill_str = os.system("adb kill-server")
-            if "is not recognized" == adb_kill_str:
-                print("ADB not recognuized")
-                
-        except Exception as e :
-            print("ADB may not be installed or configured as a windows $PATH","\n",e,'\n\n')
+        #Check ADB Key
+        adb_pub_key = os.path.join(THIS_FILE_DIR,'adbkey.pub')
 
-        try:    
-            self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
-        except:
+        if not os.path.isfile(adb_pub_key):
+            keygen(os.path.join(THIS_FILE_DIR,"adbkey"))
+
+        def try_connect():
+            try:
+                print("Attempting USB ADB connection...")
+                self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
+                print("✅ USB Connected")
+                return True
+            except Exception as e:
+                print("❌ USB Connection failed:", e)
+                return False
+
+       
+        # print("self.usb.available(): ",self.usb.stat)
+        if not try_connect():
+            os.system("adb kill-server")
+            time.sleep(.5)
+            if not try_connect(): 
+                return self._default_device_info("USB connection failed after 3 attempts")
+     
+        try:
+            model = self.usb.shell('getprop pxr.vendorhw.product.model').strip()
+            serial = self.usb.shell('getprop ro.serialno').strip(),
+            mac_address = re.search(r'([0-9a-f]{2}:){5}[0-9a-f]{2}',self.usb.shell("ip address show wlan0").strip()).group(),
+            bluetooth_address = self.usb.shell("settings get secure bluetooth_address").strip()
+
             return {
-                "name" : "No Device Found",
-                "Internal SN" : "#################",
-                "MAC Address" : "##:##:##:##:##:##",     
-                "Bluetooth Adress" : "##:##:##:##:##:##",
+                "name": model,
+                "Internal SN": serial,
+                "MAC Address": mac_address,
+                "Bluetooth Address": bluetooth_address
             }
+
+        except Exception as e:
+            print("Failed to fetch device info:", e)
+            return self._default_device_info("Error retrieving properties")
+    
+    
+    def _default_device_info(self, reason="Unknown"):
+        print(f"[INFO] Returning default device info due to: {reason}")
         return {
-            "name" : self.usb.shell('getprop pxr.vendorhw.product.model').strip(),
-            "Internal SN" : self.usb.shell('getprop ro.serialno').strip(),
-            "MAC Address" : re.search(
-                '[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]:[0-9a-z][0-9a-z]',
-                self.usb.shell("ip address show wlan0").strip()
-                ).group(),
-            "Bluetooth Adress" : self.usb.shell("settings get secure bluetooth_address").strip()
+            "name": "No Device Found",
+            "Internal SN": "#################",
+            "MAC Address": "##:##:##:##:##:##",
+            "Bluetooth Address": "##:##:##:##:##:##",
         }
 
-    def push_to_device(self,device_name,order_counter,device_check_list):   
-        
+    def push_to_device(self,device_name,device_check_list):   
         try:
             self.usb.close()
         except:
             pass
-
-        data = json.load(open(file=CONFIG_PATH))
+        
+        try:
+            with open(CONFIG_PATH,"r") as f:
+                data = json.load(f)
+        except Exception as e:
+            print("Failed to read config:", e)
+            return
         
         print("Push to devices: ",device_name)
-        column = []
-
-        device_upload_list = list(data[device_name].keys())
         
-        count = 0
-        for upload_list in device_upload_list:
-            if data[device_name][upload_list]['Want'] == "1":
-                # Message: command in progress
-                text_appened = data[device_name][upload_list]['Text']
-                column.append(tk.Label(device_check_list, text = text_appened))
-                column[count].grid()
-                count += 1
+        for key, item in data[device_name].items():
+            if item.get("Want") != "1":
+                continue
 
-                # Command implementation
-                command = data[device_name][upload_list]['ADP command']
-                path = '"'+data[device_name][upload_list]['Path']+'"'
-                if(command == "push"):
-                    path_target = data[device_name][upload_list]['Path Target']
+            # Display status in GUI
+            label = tk.Label(device_check_list, text=item.get("Text", "Processing..."))
+            label.grid()
+
+            command = item.get("ADP command", "push")
+            path = item.get("Path", "")
+            path_target = item.get("Path Target", "")
+            device_storage_path = item.get("Device Storage Path", "")
+
+            # Sanitize paths
+            path = f'"{path}"' if path else ""
+            path_target = f'"{path_target}"' if path_target else ""
+            device_storage_path = f'"{device_storage_path}"' if device_storage_path else ""
+
+            adb_command = f'adb {command} {path} {device_storage_path} {path_target}'
+            print(f"[ADB] {adb_command}")
+
+            try:
+                result = run(adb_command, shell=True, capture_output=True, text=True)
+                if result.returncode != 0:
+                    print("ADB command failed:", result.stderr)
                 else:
-                    path_target = ""
+                    print("ADB command succeeded:", result.stdout)
+            except Exception as e:
+                print("Failed to run adb command:", e)
 
-                device_storage_path = ""
-                if('Device Storage Path' in data[device_name][upload_list]):
-                    device_storage_path = '"'+data[device_name][upload_list]['Device Storage Path']+'"'
-
-                os.system(f'adb {command} {path} {device_storage_path} {path_target}')
-                
-
-        # Add the last line in feedback loop
-        column.append(tk.Label(device_check_list,text='All Porcesses Finished'))
-        column[count].grid()
+        # Final message
+        tk.Label(device_check_list, text='All Processes Finished').grid()
 
   
 

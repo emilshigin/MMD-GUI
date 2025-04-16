@@ -58,7 +58,7 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     checked_mac_address.grid(row=order_counter, column=0,sticky='we')
     
     order_counter+=1
-    bluetooth_address_responce.config(text=device_info['Bluetooth Adress'])
+    bluetooth_address_responce.config(text=device_info['Bluetooth Address'])
     checked_bluetooth_address.grid(row=order_counter, column=0,sticky='we')
 
     order_counter+=1
@@ -69,7 +69,13 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     update_device_photo(self,device_image_label,device_info['name'])
     
     #Push Device 
-    usb_device.push_to_device(device_info['name'],order_counter,device_check_list)
+    device_name = device_info['name']
+    if isinstance(device_name, tuple):
+        device_name = device_name[0]
+
+    device_name = device_name.strip("{}")
+    
+    usb_device.push_to_device(device_name,device_check_list)
 
 def update_device_photo(self,device_image_label,device_info_name):
     self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
@@ -119,7 +125,7 @@ def content(self,window,content_frame) -> None:
     #Bluetooth Address
     bluetooth_address_frame = tk.Frame(left_production_frame)
     bluetooth_address = tk.Label(bluetooth_address_frame, text="Bluetooth Address:")
-    bluetooth_address_responce = tk.Button(bluetooth_address_frame, text=device_info['Bluetooth Adress'], relief="flat",command=lambda:copy_address(window,bluetooth_address_responce))
+    bluetooth_address_responce = tk.Button(bluetooth_address_frame, text=device_info['Bluetooth Address'], relief="flat",command=lambda:copy_address(window,bluetooth_address_responce))
 
     bluetooth_address_frame.grid(column=0,row=2,sticky="news")
     bluetooth_address.grid(column=0,row=0)
