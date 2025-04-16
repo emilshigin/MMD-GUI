@@ -18,9 +18,10 @@ class device:
     def __init__(self):
         try:
             self.usb = AdbDeviceUsb()
+            self.initialized = True
         except Exception as e:
             print("Failed to initialize ADB USB device:\n\t",e)
-            self.usb = None
+            self.initialized = False
 
     def get_adb_key():
         adb_key_path  = os.path.join(THIS_FILE_DIR,'adbkey')
@@ -38,6 +39,9 @@ class device:
     # Return: 
     #   dictionary of device info name,internal SN,MAC Address, Bluetooth Adress 
     def get_device_info(self):
+        if not self.initialized:
+            return self._default_device_info("No device plugged in")
+        
         #Check ADB Key
         adb_pub_key = os.path.join(THIS_FILE_DIR,'adbkey.pub')
 
@@ -45,6 +49,7 @@ class device:
             keygen(os.path.join(THIS_FILE_DIR,"adbkey"))
 
         def try_connect():
+
             try:
                 print("Attempting USB ADB connection...")
                 self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
@@ -55,7 +60,6 @@ class device:
                 return False
 
        
-        # print("self.usb.available(): ",self.usb.stat)
         if not try_connect():
             os.system("adb kill-server")
             time.sleep(.5)
