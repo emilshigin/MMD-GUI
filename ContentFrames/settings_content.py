@@ -79,7 +79,7 @@ def option_start_up(self,settings_frame):
 # [[Error]] Thrown when closing filedialog.askopenfilename
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    backup_file_location = os.path.join(THIS_FILE_DIR,'/Backup')
+    backup_file_location = os.path.join(ROOT_DIR,'Backup',Backup_Folder_Name)
     file_location = filedialog.askopenfilename(
         title=f"Select {Upload_Type} For {Backup_Folder_Name}",
         initialdir=backup_file_location ,
@@ -89,24 +89,23 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
         return  # Cancelled
 
     file_name = os.path.basename(file_location)
-    print("Current path:",THIS_FILE_DIR)
     
-    # Purpose: Write Current File if not in Backup location
-    if backup_file_location.upper() not in file_location.upper():
-        backup_file_location = os.path.join(backup_file_location, Backup_Folder_Name)
-        
-        # Check and create device folder
+    target_path = os.path.join(backup_file_location, file_name)
+    # Only copy if it's not already the same file
+    if not os.path.samefile(file_location,target_path):
         os.makedirs(backup_file_location, exist_ok=True)
-
-        # Add file to the correct device folder and
-        shutil.copy2(file_location,backup_file_location)
-        file_location = os.path.join(backup_file_location, file_name)
+        shutil.copy2(file_location, target_path)
+        file_location = target_path
+    else:
+        file_location = target_path  # Already where it should be
     
     print("File Location of APK: ", file_location)
 
     # Convert to relative path
-    relative_path = os.path.relpath(file_location, THIS_FILE_DIR)
+    relative_path = os.path.relpath(file_location, THIS_FILE_DIR)[3:]
+    relative_path = relative_path.replace("\\", "/")
     print('relative_path: ',relative_path)
+    print('final path: ',os.path.join(ROOT_DIR,relative_path))
 
     with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
