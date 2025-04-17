@@ -1,3 +1,4 @@
+import sys
 import tkinter.ttk as ttk
 import tkinter as tk
 from tkinter import filedialog
@@ -6,9 +7,16 @@ import shutil
 import os
 import json
 
-THIS_FILE_DIR = os.path.dirname(__file__)
-ROOT_DIR = os.path.dirname(THIS_FILE_DIR)
-CONFIG_PATH = os.path.join(ROOT_DIR,'config.json')
+def resource_path(*paths):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, *paths)
+
+
+THIS_FILE_DIR = resource_path("ContentFrames")
+ROOT_DIR =  resource_path()
+CONFIG_PATH = resource_path('config.json')
+
+print(THIS_FILE_DIR,ROOT_DIR,CONFIG_PATH)
 
 with open(CONFIG_PATH, 'r') as f:
     BACKUP_CONFIG_DATA = json.load(f)
@@ -45,7 +53,7 @@ def option_start_up(self,settings_frame):
 
     # menu value
     option_list = {}
-    basepath = os.path.join(ROOT_DIR,'ContentFrames')
+    basepath=resource_path('ContentFrames')
     with os.scandir(basepath) as entries:
         for entry in entries:
             if entry.is_file() and ".py" in entry.name :
@@ -79,7 +87,7 @@ def option_start_up(self,settings_frame):
 # [[Error]] Thrown when closing filedialog.askopenfilename
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    backup_file_location = os.path.join(ROOT_DIR,'Backup',Backup_Folder_Name)
+    backup_file_location = resource_path("Backup",Backup_Folder_Name)
     file_location = filedialog.askopenfilename(
         title=f"Select {Upload_Type} For {Backup_Folder_Name}",
         initialdir=backup_file_location ,
@@ -90,9 +98,10 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
 
     file_name = os.path.basename(file_location)
     
-    target_path = os.path.join(backup_file_location, file_name)
+    target_path = resource_path(backup_file_location, file_name)
+    print('Copy new file: ',file_location,target_path)
     # Only copy if it's not already the same file
-    if not os.path.samefile(file_location,target_path):
+    if not os.path.exists(target_path) or not os.path.samefile(file_location,target_path):
         os.makedirs(backup_file_location, exist_ok=True)
         shutil.copy2(file_location, target_path)
         file_location = target_path
@@ -104,8 +113,6 @@ def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Ty
     # Convert to relative path
     relative_path = os.path.relpath(file_location, THIS_FILE_DIR)[3:]
     relative_path = relative_path.replace("\\", "/")
-    print('relative_path: ',relative_path)
-    print('final path: ',os.path.join(ROOT_DIR,relative_path))
 
     with open(CONFIG_PATH, 'r') as file:
         data = json.load(file)
