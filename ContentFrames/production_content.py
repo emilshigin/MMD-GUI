@@ -6,14 +6,16 @@ import os
 import sys
 from adb_connection import device
 
-THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
-usb_device = device()
-device_info = usb_device.get_device_info()
-
 # Get absolute path to resource, works for dev and PyInstaller
 def resource_path(*paths):
     base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
     return os.path.join(base_path, *paths)
+
+THIS_FILE_DIR = getattr(sys, '_MEIPASS', os.path.abspath("."))
+usb_device = device()
+device_info = usb_device.get_device_info()
+
+
 
 #######################################################
 # Production Content
