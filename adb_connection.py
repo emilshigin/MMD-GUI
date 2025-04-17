@@ -10,16 +10,16 @@ from subprocess import run
 import tkinter as tk
 import time
 
-THIS_FILE_DIR = os.path.dirname(__file__)
-# print("File path of adb_connection: ",THIS_FILE_DIR)
-# File path of adb_connection:  D:\GitHub\MMD-GUI
-CONFIG_PATH = os.path.join(THIS_FILE_DIR,'config.json')
-ADB_PATH = os.path.join(os.path.dirname(__file__), "adb_tools", "adb.exe")
-
 # Get absolute path to resource, works for dev and PyInstaller
 def resource_path(*paths):
     base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
     return os.path.join(base_path, *paths)
+
+
+THIS_FILE_DIR = resource_path()
+CONFIG_PATH = resource_path('config.json')
+ADB_PATH = resource_path("adb_tools", "adb.exe")
+
 
 class device:
     def __init__(self):
