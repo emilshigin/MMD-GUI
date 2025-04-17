@@ -5,6 +5,7 @@ from adb_shell.auth.sign_pythonrsa import PythonRSASigner
 from adb_shell.auth.keygen import keygen
 import os
 import re
+import sys
 from subprocess import run
 import tkinter as tk
 import time
@@ -13,6 +14,12 @@ THIS_FILE_DIR = os.path.dirname(__file__)
 # print("File path of adb_connection: ",THIS_FILE_DIR)
 # File path of adb_connection:  D:\GitHub\MMD-GUI
 CONFIG_PATH = os.path.join(THIS_FILE_DIR,'config.json')
+ADB_PATH = os.path.join(os.path.dirname(__file__), "adb_tools", "adb.exe")
+
+# Get absolute path to resource, works for dev and PyInstaller
+def resource_path(*paths):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, *paths)
 
 class device:
     def __init__(self):
@@ -24,7 +31,7 @@ class device:
             self.initialized = False
 
     def get_adb_key():
-        adb_key_path  = os.path.join(THIS_FILE_DIR,'adbkey')
+        adb_key_path  = resource_path('adbkey')
         with open(adb_key_path, 'r' ) as f:
             priv = f.read()
         with open(adb_key_path  + '.pub','r') as f:
@@ -43,10 +50,10 @@ class device:
             return self._default_device_info("No device plugged in")
         
         #Check ADB Key
-        adb_pub_key = os.path.join(THIS_FILE_DIR,'adbkey.pub')
+        adb_pub_key = resource_path('adbkey.pub')
 
         if not os.path.isfile(adb_pub_key):
-            keygen(os.path.join(THIS_FILE_DIR,"adbkey"))
+            keygen(resource_path("adbkey"))
 
         def try_connect():
             try:
@@ -116,7 +123,7 @@ class device:
             label.grid()
 
             command = item.get("ADP command", "push")
-            path = os.path.join(THIS_FILE_DIR,item.get("Path", ""))
+            path = resource_path(item.get("Path", ""))
             path_target = item.get("Path Target", "")
             device_storage_path = item.get("Device Storage Path", "")
 
@@ -125,7 +132,7 @@ class device:
             path_target = f'"{path_target}"' if path_target else ""
             device_storage_path = f'"{device_storage_path}"' if device_storage_path else ""
 
-            adb_command = f'adb {command} {path} {device_storage_path} {path_target}'
+            adb_command = f'{ADB_PATH} {command} {path} {device_storage_path} {path_target}'
             print(f"[ADB] {adb_command}")
 
             try:

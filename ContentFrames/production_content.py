@@ -3,12 +3,17 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from PIL import Image, ImageTk
 import os
+import sys
 from adb_connection import device
 
 THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")
 usb_device = device()
 device_info = usb_device.get_device_info()
 
+# Get absolute path to resource, works for dev and PyInstaller
+def resource_path(*paths):
+    base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
+    return os.path.join(base_path, *paths)
 
 #######################################################
 # Production Content
@@ -78,15 +83,15 @@ def finding_devices(self,device_scan_label,mac_address_responce,bluetooth_addres
     usb_device.push_to_device(device_name,device_check_list)
 
 def update_device_photo(self,device_image_label,device_info_name):
-    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
+    self.device_image = ImageTk.PhotoImage(Image.open(resource_path("images","defualt_device.jpg")).resize((200,140)))
     if(device_info_name == 'Pico Neo 3 Pro Eye'):
-        self.device_image= ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_3.jpg")).resize((200,140)))
+        self.device_image= ImageTk.PhotoImage(Image.open(resource_path("images","Neo_3.jpg")).resize((200,140)))
     elif(device_info_name == 'PICO G3'):
-        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","G3.jpg")).resize((200,140)))
+        self.device_image = ImageTk.PhotoImage(Image.open(resource_path("images","G3.jpg")).resize((200,140)))
     elif(device_info_name == 'Pico Neo 2 Eye'):
-        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","Neo_2.png")).resize((200,140)))
+        self.device_image = ImageTk.PhotoImage(Image.open(resource_path("images","Neo_2.png")).resize((200,140)))
     elif(device_info_name == 'G2 4K'):
-        self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","g2.jpg")).resize((200,140)))
+        self.device_image = ImageTk.PhotoImage(Image.open(resource_path("images","g2.jpg")).resize((200,140)))
     device_image_label.config(image=self.device_image)
     device_image_label.image=self.device_image
     
@@ -108,7 +113,7 @@ def content(self,window,content_frame) -> None:
 
     # Left Column
     # Device Image
-    self.device_image = ImageTk.PhotoImage(Image.open(os.path.join(THIS_FILE_DIR,"images","defualt_device.jpg")).resize((200,140)))
+    self.device_image = ImageTk.PhotoImage(Image.open(resource_path("images","defualt_device.jpg")).resize((200,140)))
     device_image_label = tk.Label(left_production_frame,image=self.device_image, bd=2, relief="solid")
     device_image_label.grid(column=0,row=0,sticky="news")
     update_device_photo(self,device_image_label,device_info['name'])
