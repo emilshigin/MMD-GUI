@@ -49,7 +49,6 @@ class device:
             keygen(os.path.join(THIS_FILE_DIR,"adbkey"))
 
         def try_connect():
-
             try:
                 print("Attempting USB ADB connection...")
                 self.usb.connect(rsa_keys=[device.get_adb_key()], auth_timeout_s=0.1)
@@ -64,7 +63,7 @@ class device:
             os.system("adb kill-server")
             time.sleep(.5)
             if not try_connect(): 
-                return self._default_device_info("USB connection failed after 3 attempts")
+                return self._default_device_info("USB connection failed after 2 attempts")
      
         try:
             model = self.usb.shell('getprop pxr.vendorhw.product.model').strip()
