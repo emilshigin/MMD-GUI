@@ -6,15 +6,15 @@ import os
 from ContentFrames import production_content
 from ContentFrames import settings_content
 
-# Change \\MMD-GUI if file name changes
-THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")+'/MMD-GUI'
-ADB_PATH = os.path.join(os.path.dirname(__file__), "adb_tools", "adb.exe")
-
 # Get absolute path to resource, works for dev and PyInstaller
-def resource_path(relative_path):
+def resource_path(*paths):
     base_path = getattr(sys, '_MEIPASS', os.path.abspath("."))
-    return os.path.join(base_path, relative_path)
+    return os.path.join(base_path, *paths)
 
+# Change \\MMD-GUI if file name changes
+# THIS_FILE_DIR = os.path.dirname( os.path.dirname(__file__)).replace("\\","/")+'/MMD-GUI'
+THIS_FILE_DIR = getattr(sys, '_MEIPASS', os.path.abspath("."))
+ADB_PATH = resource_path("adb_tools", "adb.exe")
 
 # credit: https://stackoverflow.com/questions/66858214/tkinter-side-bar
 # Menu Frame Movement
@@ -68,7 +68,7 @@ if __name__ == '__main__':
     window = tk.Tk()
     window.title('MMD Software')
     window.geometry('660x400')
-    icon_path = resource_path(os.path.join('images','mmd_logo.png'))
+    icon_path = resource_path('images','mmd_logo.png')
     window.iconphoto(False,tk.PhotoImage(file=icon_path))
     window.minsize(width=660, height=500)
     window.maxsize(width=800, height=500)
