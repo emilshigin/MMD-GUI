@@ -24,7 +24,7 @@
             "Want": "1",
             "Text": "Push Sound Files",
             "Path": "Backup/Pico Neo 3 Pro Eye/MMD",
-            "Path Target":"/storage/emulated/0/Music",
+            "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
         }
     },
@@ -45,7 +45,7 @@
             "Want": "1",
             "Text": "Push Sound Files",
             "Path": "Backup/PICO G3/MMD",
-            "Path Target":"/storage/emulated/0/Music",
+            "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
         }
     },
