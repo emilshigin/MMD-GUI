@@ -17,7 +17,7 @@
         "Current VF APK": {
             "Want": "1",
             "Text": "Installing VF APK",
-            "Path": "Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_10.apk",
+            "Path": "Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_15.apk",
             "ADP command": "install"
         },
         "Language Pack": {
