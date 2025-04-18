@@ -20,6 +20,9 @@ THIS_FILE_DIR = resource_path()
 CONFIG_PATH = resource_path('config.json')
 ADB_PATH = resource_path("adb_tools", "adb.exe")
 
+#  Set ADP Path
+os.environ['ADB'] = ADB_PATH
+
 
 class device:
     def __init__(self):
@@ -67,7 +70,7 @@ class device:
 
        
         if not try_connect():
-            os.system("adb kill-server")
+            os.system(f"{ADB_PATH} kill-server")
             time.sleep(.5)
             if not try_connect(): 
                 return self._default_device_info("USB connection failed after 2 attempts")
