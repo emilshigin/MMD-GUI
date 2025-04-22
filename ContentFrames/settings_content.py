@@ -173,87 +173,85 @@ def notebook_content(frame: ttk.Frame,device_name: str):
         button_submit[count].config(relief='groove',foreground="white",background="#3292e0")
         button_submit[count].grid(row=count, column=2,padx=10, sticky="nes")            
 
-# Templet tab:
+# # Templet tab (+):
+# def templet_content(frame: ttk.Frame):
+#     data = json.load(open(file=CONFIG_PATH))
+#     # Set up frame
+#     frame.grid_columnconfigure(0, weight=1)
+#     frame.grid(row=0, column=0, sticky="news")
 
-
-def templet_content(frame: ttk.Frame):
-    data = json.load(open(file=CONFIG_PATH))
-    # Set up frame
-    frame.grid_columnconfigure(0, weight=1)
-    frame.grid(row=0, column=0, sticky="news")
-
-    # Create Rows
-    row = []
-    count = 0
+#     # Create Rows
+#     row = []
+#     count = 0
     
-    # Message
-    row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
-    row[count].grid(row=count, column=0, sticky="new")
-    row[count].grid_columnconfigure(0, weight=1)
-    row[count].grid_columnconfigure(1, weight=1)
-    row[count].grid_columnconfigure(2, weight=1)
-    row[count].grid_columnconfigure(3, weight=1)
+#     # Message
+#     row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
+#     row[count].grid(row=count, column=0, sticky="new")
+#     row[count].grid_columnconfigure(0, weight=1)
+#     row[count].grid_columnconfigure(1, weight=1)
+#     row[count].grid_columnconfigure(2, weight=1)
+#     row[count].grid_columnconfigure(3, weight=1)
 
-    device_name_label = tk.Label(row[count], text="Feture Work In Progress",background=row_bg(count))
-    device_name_label.grid(row=count, column=0, sticky="nws",padx=10)
+#     device_name_label = tk.Label(row[count], text="Feture Work In Progress",background=row_bg(count))
+#     device_name_label.grid(row=count, column=0, sticky="nws",padx=10)
 
-    # row 0 what the name of device
-     # Name of Catagory
-    count += 1
-    row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
-    row[count].grid(row=count, column=0, sticky="new")
-    row[count].grid_rowconfigure(0,weight=1)
-    row[count].grid_columnconfigure(0, weight=1)
-    row[count].grid_columnconfigure(1, weight=1)
-    row[count].grid_columnconfigure(2, weight=1)
-    row[count].grid_columnconfigure(3, weight=1)
+#     # row 0 what the name of device
+#      # Name of Catagory
+#     count += 1
+#     row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
+#     row[count].grid(row=count, column=0, sticky="new")
+#     row[count].grid_rowconfigure(0,weight=1)
+#     row[count].grid_columnconfigure(0, weight=1)
+#     row[count].grid_columnconfigure(1, weight=1)
+#     row[count].grid_columnconfigure(2, weight=1)
+#     row[count].grid_columnconfigure(3, weight=1)
 
-    device_name_label = tk.Label(row[count], text="Device Name",background=row_bg(count))
-    device_name_label.grid(row=count, column=0, sticky="nws",padx=10)
+#     device_name_label = tk.Label(row[count], text="Device Name",background=row_bg(count))
+#     device_name_label.grid(row=count, column=0, sticky="nws",padx=10)
 
-    device_name_input = tk.Entry(row[count],background=row_bg(count))
-    device_name_input.grid(row=count, column=1, columnspan=2, sticky="news",padx=10)
+#     device_name_input = tk.Entry(row[count],background=row_bg(count))
+#     device_name_input.grid(row=count, column=1, columnspan=2, sticky="news",padx=10)
     
 
-    # row 1 [row text] do you want to [push,install] a file
-    count += 1
-    row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
-    row[count].grid(row=count, column=0, sticky="new")
-    row[count].grid_columnconfigure(0, weight=1)
-    row[count].grid_columnconfigure(1, weight=1)
-    row[count].grid_columnconfigure(2, weight=1)
-    row[count].grid_columnconfigure(3, weight=1)
+#     # row 1 [row text] do you want to [push,install] a file
+#     count += 1
+#     row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
+#     row[count].grid(row=count, column=0, sticky="new")
+#     row[count].grid_columnconfigure(0, weight=1)
+#     row[count].grid_columnconfigure(1, weight=1)
+#     row[count].grid_columnconfigure(2, weight=1)
+#     row[count].grid_columnconfigure(3, weight=1)
 
 
-    file_name_label = tk.Label(row[count], text="File Name",background=row_bg(count))
-    file_name_label.grid(row=count, column=0, sticky="nws",padx=10)
+#     file_name_label = tk.Label(row[count], text="File Name",background=row_bg(count))
+#     file_name_label.grid(row=count, column=0, sticky="nws",padx=10)
 
-    file_name_input = tk.Entry(row[count],background=row_bg(count))
-    file_name_input.grid(row=count, column=1,columnspan=2, sticky="news",padx=10)
+#     file_name_input = tk.Entry(row[count],background=row_bg(count))
+#     file_name_input.grid(row=count, column=1,columnspan=2, sticky="news",padx=10)
 
-    option_list = ["none","install","push"]
-    value_menu = tk.StringVar(frame)
-    value_menu.set("Type of File")
-    select_file_type = ttk.OptionMenu(frame,value_menu,option_list[0],*option_list)
-    select_file_type.grid(row=count, column=2, sticky="news",padx=10)
+#     option_list = ["none","install","push"]
+#     value_menu = tk.StringVar(frame)
+#     value_menu.set("Type of File")
+#     select_file_type = ttk.OptionMenu(frame,value_menu,option_list[0],*option_list)
+#     select_file_type.grid(row=count, column=2, sticky="news",padx=10)
 
 
-    # row 2 do you want to Submit or add another row
-    count += 1
-    row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
-    row[count].grid(row=count, column=0, sticky="new")
-    row[count].grid_columnconfigure(0, weight=1)
-    row[count].grid_columnconfigure(1, weight=1)
-    row[count].grid_columnconfigure(2, weight=1)
-    row[count].grid_columnconfigure(3, weight=1)
+#     # row 2 do you want to Submit or add another row
+#     count += 1
+#     row.append(tk.Frame(frame,pady=10,background=row_bg(count),bd=2,relief="solid"))
+#     row[count].grid(row=count, column=0, sticky="new")
+#     row[count].grid_columnconfigure(0, weight=1)
+#     row[count].grid_columnconfigure(1, weight=1)
+#     row[count].grid_columnconfigure(2, weight=1)
+#     row[count].grid_columnconfigure(3, weight=1)
 
-    button_add_row = tk.Button(frame,text="Add Row",)
-    button_add_row.config(relief='groove',foreground="white",background="#3292e0")
-    button_add_row.grid(row=count,column=0, sticky="news",padx=15)
+#     button_add_row = tk.Button(frame,text="Add Row",)
+#     button_add_row.config(relief='groove',foreground="white",background="#3292e0")
+#     button_add_row.grid(row=count,column=0, sticky="news",padx=15)
     
-    button_submit = tk.Button(frame,text="Submit")
-    button_submit.config(relief='groove',foreground="white",background="#3292e0")
-    button_submit.grid(row=count,column=1, sticky="news",padx=15)
+#     button_submit = tk.Button(frame,text="Submit")
+#     button_submit.config(relief='groove',foreground="white",background="#3292e0")
+#     button_submit.grid(row=count,column=1, sticky="news",padx=15)
     
 
 # Frame that hold the Notebook  
@@ -292,10 +290,10 @@ def notebook_frame(self,settings_frame):
     notebook.add(neo_2_notebook_frame, text = "Neo 2")
     notebook.add(g2_notebook_frame, text = "G2")
 
-    # Add the templet maker
-    templet_notebook_frame = ttk.Frame(notebook)
-    templet_content(templet_notebook_frame)
-    notebook.add(templet_notebook_frame, text = "+")
+    # [TODO] Add the templet maker
+    # templet_notebook_frame = ttk.Frame(notebook)
+    # templet_content(templet_notebook_frame)
+    # notebook.add(templet_notebook_frame, text = "+")
 
     
 # Layout for setting page
