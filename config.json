@@ -23,7 +23,7 @@
         "Language Pack": {
             "Want": "1",
             "Text": "Push Sound Files",
-            "Path": "Backup/Pico Neo 3 Pro Eye/MMD",
+            "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
         }
@@ -44,7 +44,7 @@
         "Language Pack": {
             "Want": "1",
             "Text": "Push Sound Files",
-            "Path": "Backup/PICO G3/MMD",
+            "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
         }
@@ -68,6 +68,13 @@
             "Text": "Installing VF APK",
             "Path": "Backup/Pico Neo 2 Eye/VF2KP_1_4_12.apk",
             "ADP command": "install"
+        },
+        "Language Pack": {
+            "Want": "1",
+            "Text": "Push Sound Files",
+            "Path": "Backup/MMD",
+            "Path Target": "/storage/emulated/0/Music",
+            "ADP command": "push"
         }
     },
     "G2 4K": {
@@ -89,6 +96,13 @@
             "Text": "Installing VF APK",
             "Path": "Backup/G2 4K/VF2KP_1_4_12.apk",
             "ADP command": "install"
+        },
+        "Language Pack": {
+            "Want": "1",
+            "Text": "Push Sound Files",
+            "Path": "Backup/MMD",
+            "Path Target": "/storage/emulated/0/Music",
+            "ADP command": "push"
         }
     }
 }
