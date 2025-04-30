@@ -5,6 +5,8 @@ import sys
 import os
 from ContentFrames import production_content
 from ContentFrames import settings_content
+from version import VERSION # type: ignore
+
 
 # Get absolute path to resource, works for dev and PyInstaller
 def resource_path(*paths):
@@ -116,6 +118,11 @@ if __name__ == '__main__':
     menu_frame.bind('<Enter>', lambda e: enter_menu_frame())
     menu_frame.bind('<Leave>', lambda e: leave_menu_frame())
     menu_frame.grid_propagate(False)
+
+    # Window 
+    window_bottom_bar.grid_columnconfigure(0, weight=1)  # Push content to the right
+    version_label = tk.Label(window_bottom_bar,text=f"version: {VERSION}" ,bg="#99BFF2")
+    version_label.grid(row=0,column=1,sticky="e",padx=10,)
 
     #run
     window.mainloop()

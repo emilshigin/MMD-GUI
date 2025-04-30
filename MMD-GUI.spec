@@ -1,11 +1,24 @@
 # -*- mode: python ; coding: utf-8 -*-
+# python -m PyInstaller .\MMD-GUI.spec --noconfirm
+import os
 
+
+version_num = "1.0.4"
+version_term = ""
+version_string = version_num+version_term
+with open('version.py', 'w') as f:
+    f.write(f'VERSION = "{version_string}"\n')
 
 a = Analysis(
     ['main-tk.py'],
     pathex=[],
     binaries=[],
-    datas=[('adb_tools', 'adb_tools'), ('ContentFrames', 'ContentFrames'), ('Backup', 'Backup'), ('images', 'images')],
+    datas=[
+        ('adb_tools', 'adb_tools'), 
+        ('ContentFrames', 'ContentFrames'), 
+        ('config.json','.'),
+        ('Backup', 'Backup'), 
+        ('images', 'images')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -43,3 +56,8 @@ coll = COLLECT(
     upx_exclude=[],
     name='MMD-GUI',
 )
+
+try:
+    os.remove("version.py")
+except FileNotFoundError:
+    pass
