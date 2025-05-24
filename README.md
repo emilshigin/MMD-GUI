@@ -50,3 +50,6 @@ We end the demo by copying the device information into notepad.
 #### Start tracking config.json again :  
 ``` git update-index --no-assume-unchanged config.json ```
 
+# Version
+### *1.0.7*
+* VF App Uninstalls before reinstalling 
