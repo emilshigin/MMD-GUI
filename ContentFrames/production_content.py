@@ -158,7 +158,7 @@ def content(self,window,content_frame) -> None:
     device_sync_top = tk.Frame(right_production_frame,bd=2,relief="solid")
 
     device_scan_label = tk.Label(device_sync_top,text=device_info['name'],width=20)
-    device_scan_button = tk.Button(device_sync_top, text="Device Scan",command=lambda:threading.Thread(target=finding_devices, args=(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label,device_check_list)).start())
+    device_scan_button = tk.Button(device_sync_top, text="Device Scan",bg="#99bff2",command=lambda:threading.Thread(target=finding_devices, args=(self,device_scan_label,mac_address_responce,bluetooth_address_responce,isn_responce,device_image_label,device_check_list)).start())
 
     device_sync_top.grid_columnconfigure(0,weight=1)
     device_sync_top.grid(column=0,row=0,columnspan=1,sticky="news")
