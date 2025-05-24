@@ -6,7 +6,7 @@ import os
 from ContentFrames import production_content
 from ContentFrames import settings_content
 from version import VERSION # type: ignore
-
+#VERSION = '9.9.9'
 
 # Get absolute path to resource, works for dev and PyInstaller
 def resource_path(*paths):
