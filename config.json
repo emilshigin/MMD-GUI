@@ -3,26 +3,27 @@
     "Pico Neo 3 Pro Eye": {
         "Current App Manager APK": {
             "Want": "1",
-            "Text": "Installing App Manager",
+            "Title": "App Manager",
             "Path": "Backup/Pico Neo 3 Pro Eye/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current DA Calib": {
             "Want": "1",
-            "Text": "Pushing DA Calib",
+            "Title": "DA Calib",
             "Path": "Backup/Pico Neo 3 Pro Eye/DA_Calib_DoNotDelete.txt",
             "Path Target": "/storage/emulated/0/Download",
             "ADP command": "push"
         },
         "Current VF APK": {
             "Want": "1",
-            "Text": "Installing VF APK",
-            "Path": "Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_15.apk",
+            "Title": "VF APK",
+            "Uninstall Name": "com.MMD.VR2KN3",
+            "Path": "Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_20.apk",
             "ADP command": "install"
         },
         "Language Pack": {
             "Want": "1",
-            "Text": "Push Sound Files",
+            "Title": "Sound Files",
             "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
@@ -31,19 +32,20 @@
     "PICO G3": {
         "Current App Manager APK": {
             "Want": "1",
-            "Text": "Installing App Manager",
+            "Title": "App Manager",
             "Path": "Backup/PICO G3/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current VF APK": {
             "Want": "1",
-            "Text": "Installing VF APK",
-            "Path": "Backup/PICO G3/NEO3_Full_1_5_15.apk",
+            "Title": "VF APK",
+            "Uninstall Name": "com.MMD.VR2KN3",
+            "Path": "Backup/PICO G3/NEO3_Full_1_5_20.apk",
             "ADP command": "install"
         },
         "Language Pack": {
             "Want": "1",
-            "Text": "Push Sound Files",
+            "Title": "Sound Files",
             "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
@@ -52,26 +54,27 @@
     "Pico Neo 2 Eye": {
         "Current App Manager APK": {
             "Want": "1",
-            "Text": "Installing App Manager",
+            "Title": "App Manager",
             "Path": "Backup/Pico Neo 2 Eye/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
-            "Text": "Pushing config",
+            "Title": "config",
             "Path": "Backup/Pico Neo 2 Eye/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
         },
         "Current VF APK": {
             "Want": "1",
-            "Text": "Installing VF APK",
+            "Title": "VF APK",
             "Path": "Backup/Pico Neo 2 Eye/VF2KP_1_4_12.apk",
+            "Uninstall Name": "com.mmd.VF2000PICO",
             "ADP command": "install"
         },
         "Language Pack": {
             "Want": "1",
-            "Text": "Push Sound Files",
+            "Title": "Sound Files",
             "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
@@ -80,26 +83,27 @@
     "G2 4K": {
         "Current App Manager APK": {
             "Want": "1",
-            "Text": "Installing App Manager",
+            "Title": "App Manager",
             "Path": "Backup/G2 4K/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
-            "Text": "Pushing config",
+            "Title": "config",
             "Path": "Backup/G2 4K/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
         },
         "Current VF APK": {
             "Want": "1",
-            "Text": "Installing VF APK",
+            "Title": "VF APK",
+            "Uninstall Name": "com.mmd.VF2000PICO",
             "Path": "Backup/G2 4K/VF2KP_1_4_12.apk",
             "ADP command": "install"
         },
         "Language Pack": {
             "Want": "1",
-            "Text": "Push Sound Files",
+            "Title": "Sound Files",
             "Path": "Backup/MMD",
             "Path Target": "/storage/emulated/0/Music",
             "ADP command": "push"
