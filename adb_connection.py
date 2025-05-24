@@ -120,16 +120,40 @@ class device:
         for key, item in data[device_name].items():
             if item.get("Want") != "1":
                 continue
-
-            # Display status in GUI
-            label = tk.Label(device_check_list, text=item.get("Text", "Processing..."))
-            label.grid()
-
+            
             command = item.get("ADP command", "push")
+            title = item.get("Title")
             path = resource_path(item.get("Path", ""))
             path_target = item.get("Path Target", "")
             device_storage_path = item.get("Device Storage Path", "")
 
+
+            # Uninstall Apk
+            if item.get("Uninstall Name"):
+                
+                apk_name = item.get("Uninstall Name")
+                uninstall_cammand = f'{ADB_PATH} uninstall {apk_name} '
+                print(f"[Uninstalling] {title} {uninstall_cammand}")
+
+                # Display status in GUI
+                label = tk.Label(device_check_list, text=f"Uninstalling {title}")
+                label.grid()
+
+                try:
+                    result = run(uninstall_cammand, shell=True, capture_output=True, text=True)
+                    if result.returncode != 0:
+                        print("ADB command failed:", result.stderr)
+                    else:
+                        print("ADB command succeeded:", result.stdout)
+                except Exception as e:
+                    print("Failed to run adb command:", e)
+
+
+            # Display status in GUI
+            label = tk.Label(device_check_list, text=f'{command.capitalize()} {title}')
+            label.grid()
+
+            
             # Sanitize paths
             path = f'"{path}"' if path else ""
             path_target = f'"{path_target}"' if path_target else ""
