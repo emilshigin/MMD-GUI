@@ -4,13 +4,13 @@
         "Current App Manager APK": {
             "Want": "1",
             "Title": "App Manager",
-            "Path": "Backup/Pico Neo 3 Pro Eye/MMD_AppManager_3.apk",
+            "Path": "Backup/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current DA Calib": {
             "Want": "1",
             "Title": "DA Calib",
-            "Path": "Backup/Pico Neo 3 Pro Eye/DA_Calib_DoNotDelete.txt",
+            "Path": "Backup/DA_Calib_DoNotDelete.txt",
             "Path Target": "/storage/emulated/0/Download",
             "ADP command": "push"
         },
@@ -18,7 +18,7 @@
             "Want": "1",
             "Title": "VF APK",
             "Uninstall Name": "com.MMD.VR2KN3",
-            "Path": "Backup/Pico Neo 3 Pro Eye/NEO3_Full_1_5_20.apk",
+            "Path": "Backup/NEO3_Full_1_5_20.apk",
             "ADP command": "install"
         },
         "Language Pack": {
@@ -33,14 +33,14 @@
         "Current App Manager APK": {
             "Want": "1",
             "Title": "App Manager",
-            "Path": "Backup/PICO G3/MMD_AppManager_3.apk",
+            "Path": "Backup/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current VF APK": {
             "Want": "1",
             "Title": "VF APK",
             "Uninstall Name": "com.MMD.VR2KN3",
-            "Path": "Backup/PICO G3/NEO3_Full_1_5_20.apk",
+            "Path": "Backup/NEO3_Full_1_5_20.apk",
             "ADP command": "install"
         },
         "Language Pack": {
@@ -55,21 +55,21 @@
         "Current App Manager APK": {
             "Want": "1",
             "Title": "App Manager",
-            "Path": "Backup/Pico Neo 2 Eye/MMD_AppManager_3.apk",
+            "Path": "Backup/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
             "Title": "config",
-            "Path": "Backup/Pico Neo 2 Eye/config.txt",
+            "Path": "Backup/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
         },
         "Current VF APK": {
             "Want": "1",
             "Title": "VF APK",
-            "Path": "Backup/Pico Neo 2 Eye/VF2KP_1_4_12.apk",
             "Uninstall Name": "com.mmd.VF2000PICO",
+            "Path": "Backup/VF2KP_1_5_6.apk",
             "ADP command": "install"
         },
         "Language Pack": {
@@ -84,13 +84,13 @@
         "Current App Manager APK": {
             "Want": "1",
             "Title": "App Manager",
-            "Path": "Backup/G2 4K/MMD_AppManager_3.apk",
+            "Path": "Backup/MMD_AppManager_3.apk",
             "ADP command": "install"
         },
         "Current Config": {
             "Want": "1",
             "Title": "config",
-            "Path": "Backup/G2 4K/config.txt",
+            "Path": "Backup/config.txt",
             "Path Target": "/storage/emulated/0/",
             "ADP command": "push"
         },
@@ -98,7 +98,7 @@
             "Want": "1",
             "Title": "VF APK",
             "Uninstall Name": "com.mmd.VF2000PICO",
-            "Path": "Backup/G2 4K/VF2KP_1_4_12.apk",
+            "Path": "Backup/VF2KP_1_5_6.apk",
             "ADP command": "install"
         },
         "Language Pack": {

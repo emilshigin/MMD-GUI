@@ -87,7 +87,7 @@ def option_start_up(self,settings_frame):
 # [[Error]] Thrown when closing filedialog.askopenfilename
 def file_upload(button: tk.Button,Label: tk.Label ,Backup_Folder_Name, Upload_Type,Prefix = None ):
     #  Get File Loction
-    backup_file_location = resource_path("Backup",Backup_Folder_Name)
+    backup_file_location = resource_path("Backup")
     file_location = filedialog.askopenfilename(
         title=f"Select {Upload_Type} For {Backup_Folder_Name}",
         initialdir=backup_file_location ,
