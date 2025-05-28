@@ -3,7 +3,7 @@
 import os
 
 
-version_num = "1.0.4"
+version_num = "1.0.8"
 version_term = ""
 version_string = version_num+version_term
 with open('version.py', 'w') as f:

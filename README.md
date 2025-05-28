@@ -51,5 +51,9 @@ We end the demo by copying the device information into notepad.
 ``` git update-index --no-assume-unchanged config.json ```
 
 # Version
+### *1.0.8*
+* Made install files smaller
+* All apk and files are in one directory /backup
+
 ### *1.0.7*
 * VF App Uninstalls before reinstalling 
