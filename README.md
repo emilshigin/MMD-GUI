@@ -51,6 +51,11 @@ We end the demo by copying the device information into notepad.
 ``` git update-index --no-assume-unchanged config.json ```
 
 # Version
+### *1.0.9*
+* Update Neo 3 to 1.6.6 
+    - Ishara is now going to wait 60 seconds before moving on to the next palet 
+    - The clicker volume has been lowered by 30%
+
 ### *1.0.8*
 * Made install files smaller
 * All apk and files are in one directory /backup
